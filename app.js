@@ -34,8 +34,8 @@ app.get("/api/products", function (req, res) {
     pizzaList.forEach((a) => a.save());
 
     const pizzaFromDB = await Pizza.find({});
-    res.send(JSON.stringify(pizzaFromDB));
     db.close();
+    res.send(JSON.stringify(pizzaFromDB));  
   });
 });
 
