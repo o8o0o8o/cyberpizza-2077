@@ -18,9 +18,9 @@ app.get("/", function (req, res) {
   );
   db.on("error", console.error.bind(console, "connection error:"));
   db.once("open", async function () {
-    const pizzaFromDB = await  mongoose.connection.db.listCollections();
-    db.close();    
-  res.send(JSON.stringify(pizzaFromDB));
+    const pizzaFromDB = await mongoose.connection.db.listCollections();
+    db.close();
+    res.send(pizzaFromDB);
   });
   res.send("To view pizzas send GET request '/api/products'");
 });
