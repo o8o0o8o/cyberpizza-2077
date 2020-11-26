@@ -31,7 +31,7 @@ app.get("/api/products", function (req, res) {
     const pizzaList = arr.map(
       (a) => new Pizza({ name: a.name, price: a.price })
     );
-    pizzaList.forEach((a) => await a.save());
+    pizzaList.forEach((a) => a.save());
 
     const pizzaFromDB = await Pizza.find({});
     await Pizza.collection.drop();
