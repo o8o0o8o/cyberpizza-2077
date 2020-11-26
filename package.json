@@ -2,9 +2,15 @@
   "name": "cyberpizza-2077",
   "version": "1.0.0",
   "description": "pizza delivery service",
+<<<<<<< HEAD
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
+=======
+  "main": "server/app.js",
+  "scripts": {
+    "start": "nodemon server/app.js",
+>>>>>>> b6f56bd (single commit for master)
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,6 +24,10 @@
   },
   "homepage": "https://github.com/o8o0o8o/cyberpizza-2077#readme",
   "dependencies": {
+<<<<<<< HEAD
+=======
+    "body-parser": "^1.19.0",
+>>>>>>> b6f56bd (single commit for master)
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongodb": "^3.6.3",
