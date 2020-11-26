@@ -31,10 +31,10 @@ app.get("/api/products", function (req, res) {
     const pizzaList = arr.map(
       (a) => new Pizza({ name: a.name, price: a.price })
     );
-    pizzaList.forEach((a) => a.save());
+    pizzaList.forEach((a) => await a.save());
 
     const pizzaFromDB = await Pizza.find({});
-    Pizza.collection.drop();
+    await Pizza.collection.drop();
     db.close();
     res.send(JSON.stringify(pizzaFromDB));
   });
