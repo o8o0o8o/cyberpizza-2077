@@ -18,7 +18,14 @@ app.get("/", function (req, res) {
   );
   db.on("error", console.error.bind(console, "connection error:"));
   db.once("open", async function () {
-    const pizzaFromDB = await mongoose.connection.db.listCollections();
+    const pizzaFromDB = [];
+     await mongoose.connection.db.listCollections().toArray((err, names) => {
+      if (err) {
+        console.log(err);
+      } else {
+        pizzaFromDB.push(names)
+      }
+     })
     db.close();
     res.send(pizzaFromDB);
   });
