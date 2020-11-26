@@ -18,12 +18,9 @@ app.get("/", function (req, res) {
   );
   db.on("error", console.error.bind(console, "connection error:"));
   db.once("open", async function () {
-    
-
-
     const pizzaFromDB = await db.collections.find({});
     db.close();
-    res.send(JSON.stringify(pizzaFromDB));  
+  });
   res.send("To view pizzas send GET request '/api/products'");
 });
 
@@ -34,8 +31,7 @@ app.get("/api/products", function (req, res) {
   );
   db.on("error", console.error.bind(console, "connection error:"));
   db.once("open", async function () {
-    
-   const pizzaSchema = new mongoose.Schema({
+    const pizzaSchema = new mongoose.Schema({
       name: String,
       price: Number,
     });
@@ -48,7 +44,7 @@ app.get("/api/products", function (req, res) {
 
     const pizzaFromDB = await Pizza.find({});
     db.close();
-    res.send(JSON.stringify(pizzaFromDB));  
+    res.send(JSON.stringify(pizzaFromDB));
   });
 });
 
