@@ -17,4 +17,4 @@ app.get("/api/products", function (req, res) {
   res.send(JSON.stringify(arr));
 });
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
