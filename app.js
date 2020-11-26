@@ -35,7 +35,7 @@ app.get("/api/products", function (req, res) {
 
     const pizzaFromDB = await Pizza.find({});
     Pizza.collection.drop();
-    //db.close();
+    db.close();
     res.send(JSON.stringify(pizzaFromDB));
   });
 });
