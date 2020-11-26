@@ -1,0 +1,22 @@
+{
+  "name": "cyberpizza-2077",
+  "version": "1.0.0",
+  "description": "pizza delivery service",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/o8o0o8o/cyberpizza-2077.git"
+  },
+  "author": "Siarhei Labuts",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/o8o0o8o/cyberpizza-2077/issues"
+  },
+  "homepage": "https://github.com/o8o0o8o/cyberpizza-2077#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
