@@ -12,23 +12,6 @@ const mongoose = require("mongoose");
 const db = mongoose.connection;
 
 app.get("/", function (req, res) {
-  mongoose.connect(
-    "mongodb+srv://cyberpizza-2077:cyberpizza-2077@cluster0.k7nnm.mongodb.net/test?ssl=true&retryWrites=true&w=majority",
-    { useUnifiedTopology: true, useNewUrlParser: true }
-  );
-  db.on("error", console.error.bind(console, "connection error:"));
-  db.once("open", async function () {
-    const pizzaFromDB = [];
-     await mongoose.connection.db.listCollections().toArray((err, names) => {
-      if (err) {
-        console.log(err);
-      } else {
-        pizzaFromDB.push(names)
-      }
-     })
-    db.close();
-    res.send(pizzaFromDB);
-  });
   res.send("To view pizzas send GET request '/api/products'");
 });
 
@@ -51,6 +34,7 @@ app.get("/api/products", function (req, res) {
     pizzaList.forEach((a) => a.save());
 
     const pizzaFromDB = await Pizza.find({});
+    Pizza.collection.drop();
     db.close();
     res.send(JSON.stringify(pizzaFromDB));
   });
