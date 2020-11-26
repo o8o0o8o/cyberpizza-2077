@@ -17,7 +17,7 @@ app.get("/", function (req, res) {
 
 app.get("/api/products", function (req, res) {
   mongoose.connect(
-    "mongodb+srv://cyberpizza-2077:cyberpizza-2077@cluster0.k7nnm.mongodb.net/test?retryWrites=true&w=majority",
+    "mongodb+srv://cyberpizza-2077:cyberpizza-2077@cluster0.k7nnm.mongodb.net/test?ssl=true&retryWrites=true&w=majority",
     { useUnifiedTopology: true, useNewUrlParser: true }
   );
   db.on("error", console.error.bind(console, "connection error:"));
