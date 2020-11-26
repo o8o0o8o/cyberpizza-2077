@@ -21,21 +21,27 @@ app.get("/api/products", function (req, res) {
     { useUnifiedTopology: true, useNewUrlParser: true }
   );
   db.on("error", console.error.bind(console, "connection error:"));
-  db.once("open", async function () {
-    const pizzaSchema = new mongoose.Schema({
-      name: String,
-      price: Number,
-    });
-    const Pizza = mongoose.model("Pizza", pizzaSchema);
+  db.once("open", async function () {    
+    Pizza.count({}, (err, count) => {
+      if (count > 0) {
+        console.log("Exists");
+      } else {
+        const pizzaSchema = new mongoose.Schema({
+          name: String,
+          price: Number,
+        });
+        const Pizza = mongoose.model("Pizza", pizzaSchema);
 
-    const pizzaList = arr.map(
-      (a) => new Pizza({ name: a.name, price: a.price })
-    );
-    pizzaList.forEach((a) => a.save());
+        const pizzaList = arr.map(
+          (a) => new Pizza({ name: a.name, price: a.price })
+        );
+        pizzaList.forEach((a) => a.save());
+      }
+    });
 
     const pizzaFromDB = await Pizza.find({});
     db.close();
-    res.send(JSON.stringify(pizzaFromDB));  
+    res.send(JSON.stringify(pizzaFromDB));
   });
 });
 
