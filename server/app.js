@@ -1,9 +1,13 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
-
 const models = require("./models/index.js");
 const app = express();
+const bodyParser = require("body-parser");
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.listen(process.env.PORT || 3000);
+
 const arr = [
   {
     //category: "Popular",
@@ -45,7 +49,7 @@ const arr = [
       "https://straus.s3.amazonaws.com/media/products2/8509_big.jpg?version=1566193955",
   },
   {
-   // category: "Vegetarian",
+    // category: "Vegetarian",
     name: "Vegetariana",
     price: 8,
     description: "My favorite pizza",
@@ -73,8 +77,67 @@ const categories = [
 ];
 const db = mongoose.connection;
 
+db.on("error", console.error.bind(console, "connection error:"));
+
 app.get("/", function (req, res) {
   res.send("To view pizzas send GET request '/api/products'");
+});
+
+app.get("/products/:name", async function (req, res) {
+  mongoose.connect(
+    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}?ssl=true&retryWrites=true&w=majority`,
+    { useUnifiedTopology: true, useNewUrlParser: true }
+  );
+  db.once("open", async function () {
+    const name = req.params.name;
+    const result = await models.Pizza.find({ name });
+
+    res.send(result);
+  });
+});
+
+app.post("/products", function (req, res) {
+  mongoose.connect(
+    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}?ssl=true&retryWrites=true&w=majority`,
+    { useUnifiedTopology: true, useNewUrlParser: true }
+  );
+  db.once("open", async function () {
+    const name = req.body.name;
+    const result = await models.Pizza.find({ name });
+
+    res.send(result);
+  });
+});
+
+app.put("/products", function (req, res) {
+  mongoose.connect(
+    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}?ssl=true&retryWrites=true&w=majority`,
+    { useUnifiedTopology: true, useNewUrlParser: true }
+  );
+  db.once("open", async function () {
+    const json = req.body;
+
+    const pizza = new models.Pizza({ json });
+    pizza.save();
+    
+    const pizzaFromDB = await models.Pizza.find({});
+    res.send(pizzaFromDB);
+  });
+});
+
+app.delete("/products", function (req, res) {
+  mongoose.connect(
+    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}?ssl=true&retryWrites=true&w=majority`,
+    { useUnifiedTopology: true, useNewUrlParser: true }
+  );
+  db.once("open", async function () {
+    const name = req.body.name;
+
+    await db.models.Pizza.deleteMany({name});
+    
+    const pizzaFromDB = await models.Pizza.find({});    
+    res.send(pizzaFromDB);
+  });
 });
 
 app.get("/api/products", function (req, res) {
@@ -82,7 +145,6 @@ app.get("/api/products", function (req, res) {
     `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}?ssl=true&retryWrites=true&w=majority`,
     { useUnifiedTopology: true, useNewUrlParser: true }
   );
-  db.on("error", console.error.bind(console, "connection error:"));
   db.once("open", async function () {
     const pizzaList = arr.map(
       (a) =>
@@ -101,7 +163,7 @@ app.get("/api/products", function (req, res) {
       (a) => new models.Category({ name: a.name, isEnabled: a.isEnabled })
     );
 
-    categoriesList.forEach(a => a.save())
+    categoriesList.forEach((a) => a.save());
 
     pizzaList.forEach((a) => a.save());
 
@@ -110,9 +172,8 @@ app.get("/api/products", function (req, res) {
 
     const pizzaFromDB = await models.Pizza.find({});
     //await models.Pizza.collection.drop();
-    db.close();
+    //db.close();
     res.send(JSON.stringify(pizzaFromDB));
   });
 });
-
-app.listen(process.env.PORT || 3000);
+git
