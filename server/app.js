@@ -1,5 +1,8 @@
-require('dotenv').config();
+require("dotenv").config();
 const express = require("express");
+const mongoose = require("mongoose");
+
+const Pizza = require("./models/index.js").Pizza;
 const app = express();
 const arr = [
   { name: "Margherita", price: 5 },
@@ -9,13 +12,7 @@ const arr = [
   { name: "Vegetariana", price: 8 },
   { name: "Ciao-ciao", price: 6 },
 ];
-const mongoose = require("mongoose");
 const db = mongoose.connection;
-const pizzaSchema = new mongoose.Schema({
-  name: String,
-  price: Number,
-});
-const Pizza = mongoose.model("Pizza", pizzaSchema);
 
 app.get("/", function (req, res) {
   res.send("To view pizzas send GET request '/api/products'");
