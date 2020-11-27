@@ -1,7 +1,8 @@
 require("dotenv").config();
-import { Pizza } from "./models/index.js";
-
 const express = require("express");
+const mongoose = require("mongoose");
+
+const Pizza = require("./models/index.js").Pizza;
 const app = express();
 const arr = [
   { name: "Margherita", price: 5 },
@@ -11,7 +12,6 @@ const arr = [
   { name: "Vegetariana", price: 8 },
   { name: "Ciao-ciao", price: 6 },
 ];
-const mongoose = require("mongoose");
 const db = mongoose.connection;
 
 app.get("/", function (req, res) {

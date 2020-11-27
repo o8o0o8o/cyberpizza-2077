@@ -1,1 +1,5 @@
-export * from "pizzaModel";
+const Pizza = require("./pizzaModel").Pizza;
+
+module.exports = {
+    Pizza,
+  };
