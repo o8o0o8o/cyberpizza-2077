@@ -2,9 +2,9 @@
   "name": "cyberpizza-2077",
   "version": "1.0.0",
   "description": "pizza delivery service",
-  "main": "app.js",
+  "main": "server/app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node server/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
