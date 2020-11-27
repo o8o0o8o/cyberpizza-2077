@@ -1,7 +1,4 @@
-const Pizza = require("./pizzaModel").Pizza;
-const Categories = require("./categoriesModel").Categories;
-
 module.exports = {
-  Pizza,
-  Categories,
-};
+  Pizza: require("./pizzaModel"),
+  Category: require("./categoriesModel"),
+}

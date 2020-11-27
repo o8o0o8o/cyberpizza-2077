@@ -4,8 +4,6 @@ const categoriesSchema = new mongoose.Schema({
   isEnabled: Boolean,
   pizza: [{ type: mongoose.Schema.Types.ObjectId, ref: "Pizza" }],
 });
-const Categories = mongoose.model("Categories", categoriesSchema);
+const Category = mongoose.model("Categories", categoriesSchema);
 
-module.exports = {
-  Categories: Categories,
-};
+module.exports = Category;
