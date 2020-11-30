@@ -7,5 +7,5 @@ mongoose.connect(
 
 module.exports = {
   Pizza: require('./pizzaModel'),
-  Category: require('./categoriesModel'),  
+  Category: require('./categoriesModel'),
 };

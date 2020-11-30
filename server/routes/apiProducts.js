@@ -33,6 +33,8 @@ async function findPizzaById(req, res) {
 async function findPizzaAll(req, res) {
   const pizzaArray = await Pizza.find();
 
+  if (!req) return 'No body';
+
   return res.send(pizzaArray);
 }
 

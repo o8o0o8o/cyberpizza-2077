@@ -1,9 +1,15 @@
+require('dotenv').config();
+const express = require('express');
+const app = express();
+
+app.listen(process.env.PORT || 3000);
+
 const mongoose = require('mongoose');
 
 const { Category, Pizza } = require('./models');
 
 mongoose.connect(
-  `mongodb+srv://cyberpizza-2077:cyberpizza-2077@cluster0.k7nnm.mongodb.net/test?ssl=true&retryWrites=true&w=majority&poolSize=10`,
+  `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}?ssl=true&retryWrites=true&w=majority&poolSize=10`,
   { useUnifiedTopology: true, useNewUrlParser: true },
 );
 
@@ -107,9 +113,11 @@ async function createTestCollections() {
     image: 'https://media-cdn.tripadvisor.com/media/photo-s/10/85/40/27/ciao-ciao.jpg',
   });
 
-  ciaoCiao.save(err => {
+  await ciaoCiao.save(err => {
     if (err) return err;
   });
+
+  process.exit();
 }
 
 createTestCollections();
