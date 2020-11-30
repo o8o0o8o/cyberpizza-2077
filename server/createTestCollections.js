@@ -113,11 +113,11 @@ async function createTestCollections() {
     image: 'https://media-cdn.tripadvisor.com/media/photo-s/10/85/40/27/ciao-ciao.jpg',
   });
 
- await ciaoCiao.save(err => {
+  await ciaoCiao.save(err => {
     if (err) return err;
   });
-  
-  process.exit()
+
+  process.exit();
 }
 
 createTestCollections();
