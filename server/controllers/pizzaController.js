@@ -1,6 +1,5 @@
-const Pizza = require("../models/pizzaModel");
+const Pizza = require("../models");
 const express = require("express");
-const app = express();
 
 module.exports = {
   create_Pizza: async (req, res) => {
