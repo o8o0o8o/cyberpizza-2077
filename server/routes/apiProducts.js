@@ -30,7 +30,7 @@ async function findPizzaById(req, res) {
   return res.send(pizza);
 }
 
-async function findPizzaAll(res) {
+async function findPizzaAll(req, res) {
   const pizzaArray = await Pizza.find();
 
   return res.send(pizzaArray);
