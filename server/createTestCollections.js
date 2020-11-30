@@ -1,5 +1,4 @@
 const { Category, Pizza } = require('./models');
-const mongoose = require('mongoose');
 
 const popular = new Category({ name: 'Popular' });
 const vegetarian = new Category({ name: 'Vegetarian' });
