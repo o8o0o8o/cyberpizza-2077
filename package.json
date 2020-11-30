@@ -45,9 +45,9 @@
       "pre-commit": "lint-staged"
     },
     "lint-staged": {
-      "server/**/*.{js,jsx,ts,tsx,json,css}": [
+      "*.{js,jsx,ts,tsx,json,css}": [
         "prettier --write",
-        "eslint --fix server/",
+        "eslint --fix",
         "git add"
       ]
     }
