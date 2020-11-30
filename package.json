@@ -7,7 +7,7 @@
     "server:watch": "nodemon server/app.js",
     "start": "node server/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint server/** --fix --no-error-on-unmatched-pattern --ext .jsx,.js"
+    "pre-commit": "eslint server/** --fix --no-error-on-unmatched-pattern --ext .jsx,.js"
   },
   "repository": {
     "type": "git",
