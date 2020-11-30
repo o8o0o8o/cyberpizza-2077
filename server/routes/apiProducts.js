@@ -5,8 +5,8 @@ const { Pizza } = require('../models');
 
 router.get('/', findPizzaAll);
 router.get('/:id', findPizzaById);
-router.post('/', findPizzaById);
-router.put('/', createPizza);
+router.post('/', createPizza);
+router.put('/', updatePizzaById);
 router.delete('/', deletePizzaById);
 
 async function createPizza(req, res) {
@@ -39,6 +39,13 @@ async function findPizzaAll(req, res) {
 async function deletePizzaById(req, res) {
   const id = req.body.id || req.params.id;
   const pizza = await Pizza.deleteOne({ id });
+
+  return res.send(pizza);
+}
+
+async function updatePizzaById(req, res) {
+  const idParameter = (req.body && req.body.id) || (req.params && req.params.id);
+  const pizza = await Pizza.updateOne(idParameter, req.body);
 
   return res.send(pizza);
 }
