@@ -38,11 +38,11 @@ async function findPizzaAll(req, res) {
   return res.send(pizzaArray);
 }
 
-async function deletePizzaById(req, res) {
-  const id = req.body.id || req.params.id;
-  const pizza = await Pizza.deleteOne({ id });
+async function deletePizzaById(req, res, ) {
+  const idParameter = req.body.id || req.params.id;
+  const result = await Pizza.deleteOne({_id: idParameter });
 
-  return res.send(pizza);
+  return res.send(result);
 }
 
 async function updatePizzaById(req, res) {
