@@ -1,13 +1,13 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 
-const { Pizza } = require("../models");
+const { Pizza } = require('../models');
 
-router.get("/", findPizzaAll);
-router.get("/:id", findPizzaById);
-router.post("/", findPizzaById);
-router.put("/", createPizza);
-router.delete("/", deletePizzaById);
+router.get('/', findPizzaAll);
+router.get('/:id', findPizzaById);
+router.post('/', findPizzaById);
+router.put('/', createPizza);
+router.delete('/', deletePizzaById);
 
 async function createPizza(req, res) {
   const { name, price, description, weight, data, image } = req.body;
@@ -24,8 +24,7 @@ async function createPizza(req, res) {
 }
 
 async function findPizzaById(req, res) {
-  const idParameter =
-    (req.body && req.body.id) || (req.params && req.params.id);
+  const idParameter = (req.body && req.body.id) || (req.params && req.params.id);
   const pizza = await Pizza.findById(idParameter);
 
   return res.send(pizza);
