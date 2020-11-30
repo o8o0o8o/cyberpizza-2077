@@ -1,4 +1,4 @@
 module.exports = {
-  Pizza: require("./pizzaModel"),
-  Category: require("./categoriesModel"),
-}
+  Pizza: require('./pizzaModel'),
+  Category: require('./categoriesModel'),
+};
