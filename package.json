@@ -9,7 +9,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "husky install",
     "prepublish": "pinst --disable",
-    "postpublish": "pinst --enable"
+    "postpublish": "pinst --enable",
+    "lint:fix": "eslint ./server --fix --color"
   },
   "repository": {
     "type": "git",
@@ -47,7 +48,7 @@
   },
   "lint-staged": {
     "*.{js,jsx}": [
-      "eslint . --fix", "git add"
+      "npm run lint:fix", "git add"
     ],
     "*.{json,md,html}": [
       "prettier --write", "git add"
