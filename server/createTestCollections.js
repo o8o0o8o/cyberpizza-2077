@@ -1,12 +1,19 @@
+const mongoose = require('mongoose');
+
 const { Category, Pizza } = require('./models');
+
+mongoose.connect(
+  `mongodb+srv://cyberpizza-2077:cyberpizza-2077@cluster0.k7nnm.mongodb.net/test?ssl=true&retryWrites=true&w=majority&poolSize=10`,
+  { useUnifiedTopology: true, useNewUrlParser: true },
+);
 
 const popular = new Category({ name: 'Popular' });
 const vegetarian = new Category({ name: 'Vegetarian' });
 const spicy = new Category({ name: 'Spicy' });
 const newCategory = new Category({ name: 'New' });
 
-function createTestCollections() {
-  popular.save(err => {
+async function createTestCollections() {
+  await popular.save(err => {
     if (err) return err;
 
     const margherita = new Pizza({
@@ -50,7 +57,7 @@ function createTestCollections() {
     });
   });
 
-  vegetarian.save(err => {
+  await vegetarian.save(err => {
     if (err) return err;
 
     const vegetariana = new Pizza({
@@ -68,7 +75,7 @@ function createTestCollections() {
     });
   });
 
-  spicy.save(err => {
+  await spicy.save(err => {
     if (err) return err;
 
     const mexicana = new Pizza({
@@ -105,4 +112,4 @@ function createTestCollections() {
   });
 }
 
-module.exports = createTestCollections;
+createTestCollections();
