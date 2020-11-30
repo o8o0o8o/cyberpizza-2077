@@ -6,7 +6,8 @@
   "scripts": {
     "server:watch": "nodemon server/app.js",
     "start": "node server/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"  },
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/o8o0o8o/cyberpizza-2077.git"
@@ -43,12 +44,12 @@
     "hooks": {
       "pre-commit": "lint-staged"
     },
-"lint-staged": {
-    "server/**/*.{js,jsx,ts,tsx,json,css}": [
-      "prettier --write",
-      "eslint --fix server/",
-      "git add"
-    ]
+    "lint-staged": {
+      "server/**/*.{js,jsx,ts,tsx,json,css}": [
+        "prettier --write",
+        "eslint --fix server/",
+        "git add"
+      ]
+    }
   }
-}
 }
