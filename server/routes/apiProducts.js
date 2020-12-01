@@ -38,9 +38,9 @@ async function findPizzaAll(req, res) {
   return res.send(pizzaArray);
 }
 
-async function deletePizzaById(req, res, ) {
+async function deletePizzaById(req, res) {
   const idParameter = req.body.id || req.params.id;
-  const result = await Pizza.deleteOne({_id: idParameter });
+  const result = await Pizza.deleteOne({ _id: idParameter });
 
   return res.send(result);
 }
