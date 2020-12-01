@@ -30,7 +30,7 @@ export const FirstPage = () => {
 
   useEffect(() => {
     const proxyurl = 'https://cors-anywhere.herokuapp.com/';
-    fetch(proxyurl + 'https://cyberpizza-2077.herokuapp.com/api/products')
+    fetch('https://cyberpizza-2077.herokuapp.com/api/products')
       .then(data => data.json())
       .then(res => setProducts(res))
       .catch(err => err);
