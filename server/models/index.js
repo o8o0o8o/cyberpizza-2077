@@ -6,6 +6,6 @@ mongoose.connect(
 );
 
 module.exports = {
-  Pizza: require('./pizzaModel'),
-  Category: require('./categoriesModel'),
+  Product: require('./product'),
+  Category: require('./category'),
 };
