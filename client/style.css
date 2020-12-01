@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'cyberpunk';
+  src: url('./assets/fonts/Cyberpunk.ttf') format('truetype'), url('./assets/fonts/Cyberpunk.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+body {
+  font-family: 'cyberpunk';
+  overflow-x: hidden;
+}

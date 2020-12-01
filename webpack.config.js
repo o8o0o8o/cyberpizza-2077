@@ -14,6 +14,14 @@ module.exports = {
           },
         },
       },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(png|svg|jpg|gif|otf|ttf|eot|mp3)$/,
+        use: ['file-loader'],
+      },
     ],
   },
   resolve: {
@@ -25,5 +33,7 @@ module.exports = {
   },
   devServer: {
     contentBase: path.resolve(__dirname, './client/dist'),
+    port: 2077,
+    open: true,
   },
 };
