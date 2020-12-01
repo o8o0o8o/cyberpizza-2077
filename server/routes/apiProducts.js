@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { Pizza } = require('../models');
+const { Product } = require('../models');
 
 router.get('/', findPizzaAll);
 router.get('/:id', findPizzaById);
@@ -11,7 +11,7 @@ router.delete('/', deletePizzaById);
 
 async function createPizza(req, res) {
   const { name, price, description, weight, data, image } = req.body;
-  const pizza = await Pizza.create({
+  const pizza = await Product.create({
     name,
     price,
     description,
@@ -25,13 +25,13 @@ async function createPizza(req, res) {
 
 async function findPizzaById(req, res) {
   const idParameter = (req.body && req.body.id) || (req.params && req.params.id);
-  const pizza = await Pizza.findById(idParameter);
+  const pizza = await Product.findById(idParameter);
 
   return res.send(pizza);
 }
 
 async function findPizzaAll(req, res) {
-  const pizzaArray = await Pizza.find();
+  const pizzaArray = await Product.find();
 
   if (!req) return 'No body';
 
@@ -40,14 +40,14 @@ async function findPizzaAll(req, res) {
 
 async function deletePizzaById(req, res) {
   const idParameter = req.body.id || req.params.id;
-  const result = await Pizza.deleteOne({ _id: idParameter });
+  const result = await Product.deleteOne({ _id: idParameter });
 
   return res.send(result);
 }
 
 async function updatePizzaById(req, res) {
   const idParameter = (req.body && req.body.id) || (req.params && req.params.id);
-  const pizza = await Pizza.updateOne(idParameter, req.body);
+  const pizza = await Product.updateOne(idParameter, req.body);
 
   return res.send(pizza);
 }
