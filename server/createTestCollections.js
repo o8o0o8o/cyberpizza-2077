@@ -6,7 +6,7 @@ app.listen(process.env.PORT || 3000);
 
 const mongoose = require('mongoose');
 
-const { Category, Pizza } = require('./models');
+const { Category, Product } = require('./models');
 
 mongoose.connect(
   `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}?ssl=true&retryWrites=true&w=majority&poolSize=10`,
@@ -22,30 +22,30 @@ async function createTestCollections() {
   await popular.save(err => {
     if (err) return err;
 
-    const margherita = new Pizza({
+    const margherita = new Product({
       category: popular._id,
       name: 'Margherita',
       price: 5,
-      description: 'My favorite pizza',
+      description: 'My favorite Product',
       weight: 0.8,
       data: { interestingData: 'Very' },
       image: 'https://www.gastronom.ru/binfiles/images/20190323/b24a228f.jpg',
     });
-    const napolitana = new Pizza({
+    const napolitana = new Product({
       category: popular._id,
       name: 'Napolitana',
       price: 6,
-      description: 'My favorite pizza',
+      description: 'My favorite Product',
       weight: 0.8,
       data: { interestingData: 'Very' },
       image:
         'https://avatars.mds.yandex.net/get-zen_doc/1368767/pub_5d64d70addfef600ae090ee5_5d64d8fda98a2a00aef8bcab/scale_1200',
     });
-    const capricciosa = new Pizza({
+    const capricciosa = new Product({
       category: popular._id,
       name: 'Capricciosa',
       price: 5.5,
-      description: 'My favorite pizza',
+      description: 'My favorite Product',
       weight: 0.8,
       data: { interestingData: 'Very' },
       image:
@@ -66,14 +66,14 @@ async function createTestCollections() {
   await vegetarian.save(err => {
     if (err) return err;
 
-    const vegetariana = new Pizza({
+    const vegetariana = new Product({
       category: vegetarian._id,
       name: 'Vegetariana',
       price: 8,
-      description: 'My favorite pizza',
+      description: 'My favorite Product',
       weight: 0.8,
       data: { interestingData: 'Very' },
-      image: 'https://media-cdn.tripadvisor.com/media/photo-s/0c/5d/39/d0/pizza-vegetariana.jpg',
+      image: 'https://media-cdn.tripadvisor.com/media/photo-s/0c/5d/39/d0/Product-vegetariana.jpg',
     });
 
     vegetariana.save(err => {
@@ -84,11 +84,11 @@ async function createTestCollections() {
   await spicy.save(err => {
     if (err) return err;
 
-    const mexicana = new Pizza({
+    const mexicana = new Product({
       category: spicy._id,
       name: 'Mexicana',
       price: 7,
-      description: 'My favorite pizza',
+      description: 'My favorite Product',
       weight: 0.8,
       data: { interestingData: 'Very' },
       image: 'https://straus.s3.amazonaws.com/media/products2/8509_big.jpg?version=1566193955',
@@ -103,11 +103,11 @@ async function createTestCollections() {
     if (err) return err;
   });
 
-  const ciaoCiao = new Pizza({
+  const ciaoCiao = new Product({
     //category: "New",
     name: 'Ciao-ciao',
     price: 6,
-    description: 'My favorite pizza',
+    description: 'My favorite Product',
     weight: 0.8,
     data: { interestingData: 'Very' },
     image: 'https://media-cdn.tripadvisor.com/media/photo-s/10/85/40/27/ciao-ciao.jpg',

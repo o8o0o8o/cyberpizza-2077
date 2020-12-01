@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const categoriesSchema = new mongoose.Schema({
   name: String,
   isEnabled: Boolean,
-  pizza: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Pizza' }],
+  products: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }],
 });
-const Category = mongoose.model('Categories', categoriesSchema);
+const Category = mongoose.model('Category', categoriesSchema);
 
 module.exports = Category;
