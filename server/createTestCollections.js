@@ -1,17 +1,4 @@
-require('dotenv').config();
-const express = require('express');
-const app = express();
-
-app.listen(process.env.PORT || 3000);
-
-const mongoose = require('mongoose');
-
 const { Category, Product } = require('./models');
-
-mongoose.connect(
-  `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}?ssl=true&retryWrites=true&w=majority&poolSize=10`,
-  { useUnifiedTopology: true, useNewUrlParser: true },
-);
 
 const popular = new Category({ name: 'Popular' });
 const vegetarian = new Category({ name: 'Vegetarian' });

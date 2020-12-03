@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 
 mongoose.connect(
-  `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}?ssl=true&retryWrites=true&w=majority&poolSize=10`,
+  !(process.env.DB_USER && process.env.DB_PASS)
+    ? `mongodb://${process.env.DB_HOST}/${process.env.DB_NAME}`
+    : `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}?ssl=true&retryWrites=true&w=majority&poolSize=10`,
   { useUnifiedTopology: true, useNewUrlParser: true },
 );
 

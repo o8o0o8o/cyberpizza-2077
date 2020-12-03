@@ -6,8 +6,10 @@ const path = require('path');
 
 const apiProducts = require('./routes/apiProducts');
 const apiCategories = require('./routes/apiCategories');
+const port = process.env.PORT || 2077;
 
-app.listen(process.env.PORT || 2077);
+// eslint-disable-next-line no-console
+app.listen(port, () => console.log(`Listening at localhost:${port}`));
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(bodyParser.json());
