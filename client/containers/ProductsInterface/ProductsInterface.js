@@ -20,7 +20,7 @@ export const ProductsInterface = () => {
   useEffect(() => {
     productsService.getAll().then(data => dispatch(setProducts(data)));
     categoriesService.getAll().then(data => dispatch(setCategories(data)));
-  }, [dispatch, products]);
+  }, [dispatch]);
 
   const toggleShowModal = useCallback(() => setShowModal(!showModal), [showModal]);
 
