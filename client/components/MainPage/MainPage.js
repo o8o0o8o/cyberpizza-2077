@@ -1,11 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ROUTES } from '../routing/ROUTES';
-import { Button } from './Button/Button';
+import { ROUTES } from '../../routing/ROUTES';
+import { Button } from '../Button/Button';
 
-import { useStyles } from './firstPage.styles';
+import { useStyles } from './MainPage.styles';
 
-export const FirstPage = () => {
+export const MainPage = () => {
   const title = 'React';
   const [clicks, setClicks] = useState(0);
   const classes = useStyles();
