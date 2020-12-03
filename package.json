@@ -6,11 +6,12 @@
   "scripts": {
     "server:watch": "nodemon server/app.js",
     "start": "node server/app.js",
-    "start-react": "webpack serve",
+    "start-react": "webpack serve --watch",
+    "dev": "concurrently --kill-others \"npm run watch\" \"npm run server:watch\"",
     "build": "webpack",
     "watch": "webpack --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint server/** --fix --color --no-error-on-unmatched-pattern --ext .jsx,.js",
+    "lint": "eslint **/* --fix --color --no-error-on-unmatched-pattern --ext .jsx,.js",
     "deploy": "git push heroku master",
     "db:seed": "node server/createTestCollections.js"
   },
@@ -26,12 +27,14 @@
   "homepage": "https://github.com/o8o0o8o/cyberpizza-2077#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "concurrently": "^5.3.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongodb": "^3.6.3",
     "mongoose": "^5.10.16",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -53,6 +56,9 @@
     "nodemon": "^2.0.6",
     "prettier": "^2.2.1",
     "react-jss": "^10.5.0",
+    "react-redux": "^7.2.2",
+    "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.8",
     "style-loader": "^2.0.0",
     "webpack": "^5.9.0",
     "webpack-cli": "^4.2.0",

@@ -33,7 +33,8 @@ module.exports = {
   },
   devServer: {
     contentBase: path.resolve(__dirname, './client/dist'),
-    port: 2077,
+    port: process.env.PORT || 2077,
     open: true,
+    watchContentBase: true,
   },
 };
