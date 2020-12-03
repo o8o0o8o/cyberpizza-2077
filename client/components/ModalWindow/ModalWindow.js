@@ -5,22 +5,26 @@ import { useStyles } from './ModalWindow.styles';
 import { productsService } from '../../services/productsService';
 import { CategoriesSelector } from '../CategoriesSelector/CategoriesSelector';
 
-export const ModalWindow = ({ callback, obj }) => {
+export const ModalWindow = ({ callback, obj, selectedMethod }) => {
   const classes = useStyles();
-  const [method, setMethod] = useState('GET');
+  const [method, setMethod] = useState();
   const newName = useRef();
   const newPrice = useRef();
   const newDescription = useRef();
   const newWeight = useRef();
+  const newImage = useRef();
+  const select = useRef();
 
   const handleMethodChange = useCallback(e => setMethod(e.target.value), []);
 
   useEffect(() => {
-    newName.current.value = obj && obj.name;
-    newPrice.current.value = obj && obj.price;
-    newDescription.current.value = obj && obj.description;
-    newWeight.current.value = obj && obj.weight;
-  });
+    newName.current.value = (obj && obj.name) || 'name';
+    newPrice.current.value = (obj && obj.price) || 'price';
+    newDescription.current.value = (obj && obj.description) || 'description';
+    newWeight.current.value = (obj && obj.weight) || 'weight';
+    newImage.current.value = (obj && obj.image) || 'link';
+    select.current.value = selectedMethod || 'GET';
+  }, [obj, selectedMethod]);
 
   const submit = useCallback(
     e => {
@@ -53,7 +57,7 @@ export const ModalWindow = ({ callback, obj }) => {
       <form className={classes.form}>
         <div>
           <label className={classes.label}>Choose a method:</label>
-          <select onChange={e => handleMethodChange(e)}>
+          <select onChange={e => handleMethodChange(e)} ref={select}>
             <option selected value="GET">
               GET
             </option>
@@ -79,6 +83,10 @@ export const ModalWindow = ({ callback, obj }) => {
           <input type="text" name="weight" ref={newWeight} />
         </div>
         <div>
+          <label className={classes.label}>Image:</label>
+          <input type="text" name="image" ref={newImage} />
+        </div>
+        <div>
           <label className={classes.label}>Select category</label>
           <CategoriesSelector />
         </div>
@@ -94,4 +102,5 @@ export const ModalWindow = ({ callback, obj }) => {
 ModalWindow.propTypes = {
   callback: PropTypes.func.isRequired,
   obj: PropTypes.object,
+  selectedMethod: PropTypes.string,
 };

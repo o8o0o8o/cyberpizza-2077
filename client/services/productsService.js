@@ -37,6 +37,7 @@ export class ProductsService {
       body: JSON.stringify({ name, price, description, weight, data, image, category }),
     })
       .then(response => response)
+      .then(response => response.json())
       .catch(e => {
         throw new Error(e.message);
       });
@@ -49,9 +50,10 @@ export class ProductsService {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(id, obj),
+      body: JSON.stringify({ id, obj }),
     })
       .then(response => response)
+      .then(response => response.json())
       .catch(e => {
         throw new Error(e.message);
       });
@@ -64,9 +66,10 @@ export class ProductsService {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(id),
+      body: JSON.stringify({ id: id }),
     })
       .then(response => response)
+      .then(response => response.json())
       .catch(e => {
         throw new Error(e.message);
       });

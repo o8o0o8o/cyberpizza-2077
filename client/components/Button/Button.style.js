@@ -6,7 +6,7 @@ export const useStyles = createUseStyles({
     padding: '0.25em 0.75em',
     minWidth: '100px',
     maxWidth: '310px',
-    minHeight: '44px',
+    Height: '44px',
     textAlign: 'center',
     borderRadius: '8px',
     backgroundColor: '#F335FF',

@@ -2,19 +2,20 @@ import { createUseStyles } from 'react-jss';
 
 export const useStyles = createUseStyles({
   form: {
-    minWidth: '250px',
-    minHeight: '500px',
+    width: '100%',
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   wrapper: {
-    maxWidth: '60vw',
-    maxHeight: '100%',
+    height: '400px',
+    width: '320px',
     display: 'flex',
     position: 'absolute',
     margin: '0 auto',
+    top: 10,
     left: 0,
     right: 0,
     textAlign: 'center',
