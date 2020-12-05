@@ -7,9 +7,8 @@ import { useStyles } from './CategoriesInterface.styles';
 import { ModalWindow } from '../../components/ModalWindow/ModalWindow';
 import { Button } from '../../components/Button/Button';
 import { categoriesSelector } from '../../store/selectors';
-import { productsService } from '../../services/productsService';
 import { categoriesService } from '../../services/categoriesService';
-import { setCategories, setProducts } from '../../store/actions';
+import { setCategories } from '../../store/actions';
 
 export const CategoriesInterface = () => {
   const [showModal, setShowModal] = useState(null);
@@ -23,7 +22,6 @@ export const CategoriesInterface = () => {
   const [method, setMethod] = useState(methods[0]);
 
   useEffect(() => {
-    productsService.getAll().then(data => dispatch(setProducts(data)));
     categoriesService.getAll().then(data => dispatch(setCategories(data)));
   }, [dispatch]);
 
