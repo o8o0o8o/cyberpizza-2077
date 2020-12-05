@@ -45,7 +45,7 @@ export const ModalWindow = ({
         ) : (
           <div>
             <label className={classes.label}>Pizzas IDs or names comma separated</label>
-            <input type="text" name="products" caption={obj ? obj.products : ''} />
+            <input type="text" name="products" placeholder={obj ? obj.products : ''} />
           </div>
         )}
         <input type="submit" caption="Make a request" onClick={e => submit(e)} />
