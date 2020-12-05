@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { Category, Product } = require('./models');
 
 const popular = new Category({ name: 'Popular' });
