@@ -1,0 +1,10 @@
+webpack.config.js
+package-lock.json
+package.json
+nodemon.json
+README.md
+/client/assets
+/client/dist
+node_modules
+*.html
+*.css
