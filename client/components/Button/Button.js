@@ -15,5 +15,5 @@ export const Button = ({ caption, callback }) => {
 
 Button.propTypes = {
   caption: PropTypes.string.isRequired,
-  callback: PropTypes.func,
+  callback: PropTypes.func.isRequired,
 };

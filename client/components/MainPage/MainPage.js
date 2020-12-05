@@ -21,7 +21,7 @@ export const MainPage = () => {
         <h1>{title}</h1>
         <Button caption={`Click ${clicks}`} callback={addOneClick} />
         <Link to={ROUTES.ADMIN}>
-          <Button caption="got to admin interface" />
+          <Button caption="got to admin interface" callback={addOneClick} />
         </Link>
         <div className={classes.products}></div>
       </div>
