@@ -15,6 +15,9 @@ export const SideBar = () => {
       <Link to={ROUTES.PRODUCTS_INTERFACE}>
         <a className={classes.link}>Products</a>
       </Link>
+      <Link to={ROUTES.USERS_INTERFACE}>
+        <a className={classes.link}>Users</a>
+      </Link>
     </div>
   );
 };

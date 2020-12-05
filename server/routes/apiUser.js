@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-var bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 
 const { User } = require('../models');
 
@@ -10,6 +10,7 @@ router.get('/:id', getUserById);
 router.post('/login', loginUser);
 router.post('/logout', logout);
 router.post('/', createUser);
+router.put('/', updateUser);
 router.delete('/', deleteUser);
 
 async function createUser(req, res) {
@@ -67,6 +68,13 @@ async function loginUser(req, res) {
   } else {
     res.send('fail');
   }
+}
+
+async function updateUser(req, res) {
+  const idParameter = (req.body && req.body.id) || (req.params && req.params.id);
+  const user = await User.updateOne(idParameter, req.body);
+
+  return res.send(user);
 }
 
 module.exports = router;

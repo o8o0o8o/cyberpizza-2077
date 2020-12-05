@@ -42,11 +42,13 @@ export const ModalWindow = ({
             <label className={classes.label}>Select category</label>
             <CategoriesSelector />
           </div>
-        ) : (
+        ) : relations === 'products' ? (
           <div>
             <label className={classes.label}>Pizzas IDs or names comma separated</label>
             <input type="text" name="products" placeholder={obj ? obj.products : ''} />
           </div>
+        ) : (
+          <div></div>
         )}
         <input type="submit" caption="Make a request" onClick={e => submit(e)} />
       </form>
