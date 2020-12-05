@@ -5,7 +5,18 @@ import { useStyles } from './AdminItem.styles';
 import { Button } from '../Button/Button';
 import { ModalWindow } from '../ModalWindow/ModalWindow';
 
-export const AdminItem = ({ obj, deleteCallback }) => {
+export const AdminItem = ({
+  obj,
+  deleteCallback,
+  selectedMethod,
+  submit,
+  form,
+  input,
+  methods,
+  methodSelector,
+  handleMethodChange,
+  relations,
+}) => {
   const classes = useStyles();
   const [showModal, setShowModal] = useState(false);
 
@@ -13,7 +24,21 @@ export const AdminItem = ({ obj, deleteCallback }) => {
 
   return (
     <div className={classes.product}>
-      {showModal && <ModalWindow obj={obj} callback={toggleShowModal} selectedMethod={'PUT'} />}
+      {showModal && (
+        <ModalWindow
+          obj={obj}
+          callback={toggleShowModal}
+          selectedMethod={selectedMethod}
+          relations={relations}
+          form={form}
+          closeWindow={toggleShowModal}
+          submit={submit}
+          input={input}
+          methods={methods}
+          methodSelector={methodSelector}
+          handleMethodChange={handleMethodChange}
+        />
+      )}
       <div>{`name ${obj.name}`}</div>
       <div className={classes.btnWrapper}>
         <Button caption="Delete" callback={deleteCallback} />
@@ -27,4 +52,13 @@ AdminItem.propTypes = {
   obj: PropTypes.object.isRequired,
   deleteCallback: PropTypes.func.isRequired,
   updateCallback: PropTypes.func.isRequired,
+  closeWindow: PropTypes.func.isRequired,
+  selectedMethod: PropTypes.string,
+  submit: PropTypes.func.isRequired,
+  form: PropTypes.any.isRequired,
+  methods: PropTypes.array.isRequired,
+  input: PropTypes.array.isRequired,
+  methodSelector: PropTypes.any.isRequired,
+  handleMethodChange: PropTypes.func.isRequired,
+  relations: PropTypes.string.isRequired,
 };

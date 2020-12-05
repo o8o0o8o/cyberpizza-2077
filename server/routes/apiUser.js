@@ -1,27 +1,31 @@
 const express = require('express');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
+var bcrypt = require('bcryptjs');
 
 const { User } = require('../models');
 
-router.get('/', getUserInfo);
-router.post('/login', authUser);
+router.get('/', findAllUsers);
+router.post('/login', loginUser);
 router.post('/logout', logout);
 router.post('/', createUser);
 
-async function createUser(req, res) {
+async function createUser(req, res, next) {
   const { name, email, isActive } = req.body;
-  await findAllUsers();
-  const isAdmin = !req.usersArray.length ? true : req.body.isAdmin;
-  const password = 'hash';
-  const user = await User.create({ name, password, email, isAdmin, isActive });
+  const usersArray = await User.find();
+  const isAdmin = !usersArray.length ? true : req.body.isAdmin;
+  const password = bcrypt.hashSync(req.body.password, 8);
+  await User.create({ name, password, email, isAdmin, isActive });
 
-  return res.send(user);
+  await loginUser(req, res);
+
+  next();
 }
 
 async function findAllUsers(req, res) {
   const usersArray = await User.find();
 
-  return res.usersArray(usersArray);
+  return res.send(usersArray);
 }
 
 async function logout(req, res) {
@@ -30,18 +34,28 @@ async function logout(req, res) {
   return res.send('usersArray');
 }
 
-async function getUserInfo(req, res) {
-  const idParameter = (req.body && req.body.id) || (req.params && req.params.id);
-  const user = await User.findById(idParameter);
+// async function getUserInfo(req, res, next) {
+//   const idParameter = (req.body && req.body.id) || (req.params && req.params.id);
+//   const user = await User.findById(idParameter);
 
-  return res.send(user);
-}
+//   next();
+// }
 
-async function authUser(req, res) {
-  const { password, email } = req.body;
+async function loginUser(req, res, next) {
+  const { email } = req.body;
+  const password = bcrypt.hashSync(req.body.password, 8);
+  const user = await User.findOne({ email });
+  bcrypt.compareSync(req.body.password, password), { password, email };
 
-  const user = await User.findOne({ password, email });
-  return res.usersArray(user);
+  res.user = user;
+  if (user.isActive) {
+    const cookie = req.cookies.user;
+    if (cookie === undefined) {
+      const token = jwt.sign({ id: user._id }, process.env.AUTH_KEY);
+      res.cookie('user', token);
+    }
+  }
+  next();
 }
 
 module.exports = router;

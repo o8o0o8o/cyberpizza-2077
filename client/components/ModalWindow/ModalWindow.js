@@ -1,98 +1,74 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import { useStyles } from './ModalWindow.styles';
-import { productsService } from '../../services/productsService';
 import { CategoriesSelector } from '../CategoriesSelector/CategoriesSelector';
 
-export const ModalWindow = ({ callback, obj, selectedMethod }) => {
+export const ModalWindow = ({
+  closeWindow,
+  obj,
+  selectedMethod,
+  submit,
+  form,
+  input,
+  methods,
+  methodSelector,
+  handleMethodChange,
+  relations,
+}) => {
   const classes = useStyles();
-  const [method, setMethod] = useState();
-  const newName = useRef();
-  const newPrice = useRef();
-  const newDescription = useRef();
-  const newWeight = useRef();
-  const newImage = useRef();
-  const select = useRef();
 
-  const handleMethodChange = useCallback(e => setMethod(e.target.value), []);
-
-  useEffect(() => {
-    newName.current.value = (obj && obj.name) || 'name';
-    newPrice.current.value = (obj && obj.price) || 'price';
-    newDescription.current.value = (obj && obj.description) || 'description';
-    newWeight.current.value = (obj && obj.weight) || 'weight';
-    newImage.current.value = (obj && obj.image) || 'link';
-    select.current.value = selectedMethod || 'GET';
-  }, [obj, selectedMethod]);
-
-  const submit = useCallback(
-    e => {
-      e.preventDefault();
-      switch (method) {
-        case 'GET':
-          productsService.getOne();
-          break;
-        case 'POST':
-          productsService.createOne({
-            name: newName.current.value,
-            price: newPrice.current.value,
-            description: newDescription.current.value,
-            weight: newWeight.current.value,
-          });
-          break;
-        case 'PUT':
-          productsService.updateOne();
-          break;
-        case 'DELETE':
-          productsService.deleteOne();
-          break;
-      }
-    },
-    [method],
-  );
+  const myModal = useMemo(() => {
+    return (
+      <form className={classes.form} ref={form}>
+        <div>
+          <label className={classes.label}>Choose a method:</label>
+          <select onChange={e => handleMethodChange(e)} ref={methodSelector}>
+            {methods.map(a => (
+              <option key={a.toString()} value={a} selected={selectedMethod === a}>
+                {a}
+              </option>
+            ))}
+          </select>
+        </div>
+        {input.map(a => (
+          <div key={a.toString()}>
+            <label className={classes.label}>{a}:</label>
+            <input type="text" name={a} placeholder={obj ? obj[a] : ''} />
+          </div>
+        ))}
+        {relations === 'category' ? (
+          <div>
+            <label className={classes.label}>Select category</label>
+            <CategoriesSelector />
+          </div>
+        ) : (
+          <div>
+            <label className={classes.label}>Pizzas IDs or names comma separated</label>
+            <input type="text" name="products" caption={obj ? obj.products : ''} />
+          </div>
+        )}
+        <input type="submit" caption="Make a request" onClick={e => submit(e)} />
+      </form>
+    );
+  }, [
+    classes.form,
+    classes.label,
+    form,
+    handleMethodChange,
+    input,
+    methodSelector,
+    methods,
+    obj,
+    relations,
+    selectedMethod,
+    submit,
+  ]);
 
   return (
     <div className={classes.wrapper}>
-      <form className={classes.form}>
-        <div>
-          <label className={classes.label}>Choose a method:</label>
-          <select onChange={e => handleMethodChange(e)} ref={select}>
-            <option selected value="GET">
-              GET
-            </option>
-            <option value="POST">POST</option>
-            <option value="PUT">PUT</option>
-            <option value="DELETE">DELETE</option>
-          </select>
-        </div>
-        <div>
-          <label className={classes.label}>Name:</label>
-          <input type="text" name="name" ref={newName} />
-        </div>
-        <div>
-          <label className={classes.label}>Price:</label>
-          <input type="text" name="price" ref={newPrice} />
-        </div>
-        <div>
-          <label className={classes.label}>Description:</label>
-          <input type="text" name="description" ref={newDescription} />
-        </div>
-        <div>
-          <label className={classes.label}>Weight:</label>
-          <input type="text" name="weight" ref={newWeight} />
-        </div>
-        <div>
-          <label className={classes.label}>Image:</label>
-          <input type="text" name="image" ref={newImage} />
-        </div>
-        <div>
-          <label className={classes.label}>Select category</label>
-          <CategoriesSelector />
-        </div>
-        <input type="submit" caption="Make a request" onClick={e => submit(e)} />
-      </form>
-      <button className={classes.close} onClick={() => callback()}>
+      {myModal}
+      <button className={classes.close} onClick={() => closeWindow()}>
         Close
       </button>
     </div>
@@ -100,7 +76,14 @@ export const ModalWindow = ({ callback, obj, selectedMethod }) => {
 };
 
 ModalWindow.propTypes = {
-  callback: PropTypes.func.isRequired,
+  closeWindow: PropTypes.func.isRequired,
   obj: PropTypes.object,
   selectedMethod: PropTypes.string,
+  submit: PropTypes.func.isRequired,
+  form: PropTypes.any.isRequired,
+  methods: PropTypes.array.isRequired,
+  input: PropTypes.array.isRequired,
+  methodSelector: PropTypes.any.isRequired,
+  handleMethodChange: PropTypes.func.isRequired,
+  relations: PropTypes.string.isRequired,
 };

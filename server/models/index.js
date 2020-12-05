@@ -10,5 +10,5 @@ mongoose.connect(
 module.exports = {
   Product: require('./product'),
   Category: require('./category'),
-  User: require('./category'),
+  User: require('./user'),
 };

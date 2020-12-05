@@ -7,6 +7,6 @@ const userSchema = new mongoose.Schema({
   isAdmin: Boolean,
   isActive: Boolean,
 });
-const User = mongoose.model('Category', userSchema);
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;
