@@ -5,12 +5,10 @@
   "main": "server/app.js",
   "scripts": {
     "server:watch": "nodemon server/app.js",
-    "start": "node server/app.js",
-    "start-react": "webpack serve --watch",
-    "dev": "concurrently --kill-others \"npm run watch\" \"npm run server:watch\"",
+    "start": "concurrently --kill-others \"webpack --watch\" \"npm run server:watch\"",
     "build": "webpack",
-    "watch": "webpack --watch",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "client:watch": "webpack serve --watch",
+    "test": "jest",
     "lint": "eslint **/* --fix --color --no-error-on-unmatched-pattern --ext .jsx,.js",
     "deploy": "git push heroku master",
     "db:seed": "node server/createTestCollections.js"
