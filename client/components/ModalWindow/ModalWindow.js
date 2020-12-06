@@ -15,22 +15,27 @@ export const ModalWindow = ({
   methodSelector,
   handleMethodChange,
   relations,
+  submitButtonCaption,
 }) => {
   const classes = useStyles();
 
   const myModal = useMemo(() => {
     return (
       <form className={classes.form} ref={form}>
-        <div>
-          <label className={classes.label}>Choose a method:</label>
-          <select onChange={e => handleMethodChange(e)} ref={methodSelector}>
-            {methods.map(a => (
-              <option key={a.toString()} value={a} selected={selectedMethod === a}>
-                {a}
-              </option>
-            ))}
-          </select>
-        </div>
+        {methodSelector ? (
+          <div>
+            <label className={classes.label}>Choose a method:</label>
+            <select onChange={e => handleMethodChange(e)} ref={methodSelector}>
+              {methods.map(a => (
+                <option key={a.toString()} value={a} selected={selectedMethod === a}>
+                  {a}
+                </option>
+              ))}
+            </select>
+          </div>
+        ) : (
+          <div></div>
+        )}
         {input.map(a => (
           <div key={a.toString()}>
             <label className={classes.label}>{a}:</label>
@@ -50,7 +55,9 @@ export const ModalWindow = ({
         ) : (
           <div></div>
         )}
-        <input type="submit" caption="Make a request" onClick={e => submit(e)} />
+        <button type="submit" onClick={e => submit(e)}>
+          {submitButtonCaption ? submitButtonCaption : 'Send'}
+        </button>
       </form>
     );
   }, [
@@ -65,6 +72,7 @@ export const ModalWindow = ({
     relations,
     selectedMethod,
     submit,
+    submitButtonCaption,
   ]);
 
   return (
@@ -83,9 +91,10 @@ ModalWindow.propTypes = {
   selectedMethod: PropTypes.string,
   submit: PropTypes.func.isRequired,
   form: PropTypes.any.isRequired,
-  methods: PropTypes.array.isRequired,
+  methods: PropTypes.array,
   input: PropTypes.array.isRequired,
-  methodSelector: PropTypes.any.isRequired,
-  handleMethodChange: PropTypes.func.isRequired,
+  methodSelector: PropTypes.any,
+  handleMethodChange: PropTypes.func,
   relations: PropTypes.string.isRequired,
+  submitButtonCaption: PropTypes.string,
 };

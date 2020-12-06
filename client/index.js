@@ -11,17 +11,20 @@ import { ProductsInterface } from './containers/ProductsInterface/ProductsInterf
 import { UsersInterface } from './containers/UsersInterface/UsersInterface';
 import { store } from './store';
 import { MainPage } from './components/MainPage/MainPage';
+import { AdminRoute } from './routing/AdminRoute';
+import { LoginPage } from './components/LoginPage/LoginPage';
 
 ReactDOM.render(
   <Provider store={store}>
     <div>
       <BrowserRouter>
         <Switch>
-          <Route exact path={ROUTES.ADMIN} component={AdminPage}></Route>
+          <AdminRoute exact path={ROUTES.ADMIN} component={AdminPage}></AdminRoute>
           <Route exact path={ROUTES.MAIN} component={MainPage}></Route>
-          <Route exact path={ROUTES.CATEGORIES_INTERFACE} component={CategoriesInterface}></Route>
-          <Route exact path={ROUTES.PRODUCTS_INTERFACE} component={ProductsInterface}></Route>
-          <Route exact path={ROUTES.USERS_INTERFACE} component={UsersInterface}></Route>
+          <Route exact path={ROUTES.LOGIN} component={LoginPage}></Route>
+          <AdminRoute exact path={ROUTES.CATEGORIES_INTERFACE} component={CategoriesInterface}></AdminRoute>
+          <AdminRoute exact path={ROUTES.PRODUCTS_INTERFACE} component={ProductsInterface}></AdminRoute>
+          <AdminRoute exact path={ROUTES.USERS_INTERFACE} component={UsersInterface}></AdminRoute>
           <Route>
             <Redirect to={ROUTES.MAIN} />
           </Route>

@@ -39,8 +39,7 @@ async function findAllUsers(req, res) {
 }
 
 async function logout(req, res) {
-  res.cookie('user', '');
-
+  res.clearCookie('user');
   return res.send('You logged out');
 }
 
@@ -54,9 +53,7 @@ async function getUserById(req, res) {
 async function loginUser(req, res) {
   const { email } = req.body;
   const user = await User.findOne({ email });
-
   if (bcrypt.compareSync(req.body.password, user.password)) {
-    res.user = user;
     if (user.isActive) {
       const cookie = req.cookies.user;
       if (cookie === undefined) {

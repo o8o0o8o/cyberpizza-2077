@@ -37,7 +37,31 @@ export class UsersService {
       body: JSON.stringify({ name, password, email, isAdmin, isActive }),
     })
       .then(response => response)
-      .then(response => response.json())
+      .catch(e => {
+        throw new Error(e.message);
+      });
+  }
+
+  login({ password, email }) {
+    return fetch(`${this.endpoint}/api/user/login`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ password, email }),
+    })
+      .then(response => response)
+      .catch(e => {
+        throw new Error(e.message);
+      });
+  }
+
+  logout() {
+    return fetch(`${this.endpoint}/api/user/logout`, {
+      method: 'POST',
+    })
+      .then(response => response)
       .catch(e => {
         throw new Error(e.message);
       });
@@ -53,7 +77,6 @@ export class UsersService {
       body: JSON.stringify({ id, obj }),
     })
       .then(response => response)
-      .then(response => response.json())
       .catch(e => {
         throw new Error(e.message);
       });
@@ -69,7 +92,6 @@ export class UsersService {
       body: JSON.stringify({ id: id }),
     })
       .then(response => response)
-      .then(response => response.json())
       .catch(e => {
         throw new Error(e.message);
       });
