@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { useStyles } from './ModalWindow.styles';
 import { CategoriesSelector } from '../CategoriesSelector/CategoriesSelector';
+import { Button } from '../Button/Button';
 
 export const ModalWindow = ({
   closeWindow,
@@ -55,9 +56,7 @@ export const ModalWindow = ({
         ) : (
           <div></div>
         )}
-        <button type="submit" onClick={e => submit(e)}>
-          {submitButtonCaption ? submitButtonCaption : 'Send'}
-        </button>
+        <Button type="submit" callback={submit} caption={submitButtonCaption ? submitButtonCaption : 'Send'} />
       </form>
     );
   }, [
@@ -77,10 +76,10 @@ export const ModalWindow = ({
 
   return (
     <div className={classes.wrapper}>
-      {myModal}
-      <button className={classes.close} onClick={() => closeWindow()}>
-        Close
-      </button>
+      <div className={classes.formWrapper}>
+        {myModal}
+        <i className={`${classes.close} far fa-window-close`} onClick={() => closeWindow()}></i>
+      </div>
     </div>
   );
 };
