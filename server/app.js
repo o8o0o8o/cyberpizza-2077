@@ -18,9 +18,9 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieMonster);
-app.get('/products', function (req, res) {
-  res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
-});
 app.use('/api/products', apiProducts);
 app.use('/api/categories', apiCategories);
 app.use('/api/user/', apiUser);
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
+});
