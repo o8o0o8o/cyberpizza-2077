@@ -9,5 +9,14 @@ export const useStyles = createUseStyles({
     justifyContent: 'space-between',
     border: '1px black solid',
   },
-  btnWrapper: {},
+  wrapper: {
+    display: 'flex',
+    width: '100%',
+    height: '100%',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    fontSize: '20px',
+    fontFamily: 'sans-serif',
+    alignItems: 'center',
+  },
 });

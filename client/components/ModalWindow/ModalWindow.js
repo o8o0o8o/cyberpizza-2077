@@ -65,8 +65,7 @@ export const ModalWindow = ({
       </form>
     );
   }, [
-    classes.form,
-    classes.label,
+    classes,
     form,
     handleMethodChange,
     input,

@@ -23,7 +23,7 @@ export const AdminItem = ({
   const toggleShowModal = useCallback(() => setShowModal(!showModal), [showModal]);
 
   return (
-    <div className={classes.product}>
+    <div className={classes.wrapper}>
       {showModal && (
         <ModalWindow
           obj={obj}
@@ -39,10 +39,12 @@ export const AdminItem = ({
           handleMethodChange={handleMethodChange}
         />
       )}
-      <div>{`name ${obj.name}`}</div>
-      <div className={classes.btnWrapper}>
-        <Button caption="Delete" callback={deleteCallback} />
-        <Button caption="Update" callback={toggleShowModal} />
+      <div className={classes.product}>
+        <div>{`${obj.name}`}</div>
+        <div className={classes.btnWrapper}>
+          <Button caption="Delete" callback={deleteCallback} />
+          <Button caption="Update" callback={toggleShowModal} />
+        </div>
       </div>
     </div>
   );
