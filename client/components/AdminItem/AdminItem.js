@@ -40,7 +40,7 @@ export const AdminItem = ({
         />
       )}
       <div className={classes.product}>
-        <div>{`${obj.name}`}</div>
+        <div className={classes.productName}>{obj.name}</div>
         <div className={classes.btnWrapper}>
           <Button caption="Delete" callback={deleteCallback} />
           <Button caption="Update" callback={toggleShowModal} />

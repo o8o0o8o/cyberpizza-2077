@@ -28,7 +28,7 @@ export const ModalWindow = ({
         {methodSelector ? (
           <div>
             <label className={classes.label}>Choose a method:</label>
-            <select onChange={e => handleMethodChange(e)} ref={methodSelector}>
+            <select onChange={handleMethodChange} ref={methodSelector}>
               {methods.map(a => (
                 <option key={a.toString()} value={a} selected={selectedMethod === a}>
                   {a}
@@ -82,7 +82,7 @@ export const ModalWindow = ({
     <div className={classes.wrapper}>
       <div className={classes.formWrapper}>
         {myModal}
-        <i className={`${classes.close} far fa-window-close`} onClick={() => closeWindow()}></i>
+        <i className={`${classes.close} far fa-window-close`} onClick={closeWindow}></i>
       </div>
     </div>
   );
