@@ -15,19 +15,23 @@ router.delete('/', deleteUser);
 
 async function createUser(req, res) {
   const { name, email, isActive } = req.body;
-  const usersArray = await User.find();
-  const isAdmin = !usersArray.length ? true : req.body.isAdmin;
-  const salt = bcrypt.genSaltSync(10);
-  const password = bcrypt.hashSync(req.body.password, salt);
+  const user = await User.findOne({ email });
+  if (!user) {
+    const usersArray = await User.find();
+    const isAdmin = !usersArray.length ? true : req.body.isAdmin;
+    const salt = bcrypt.genSaltSync(10);
+    const password = bcrypt.hashSync(req.body.password, salt);
 
-  await User.create({ name, password, email, isAdmin, isActive });
-
+    await User.create({ name, password, email, isAdmin, isActive });
+  }
   await loginUser(req, res);
 }
 
 async function deleteUser(req, res) {
   const idParameter = req.body.id || req.params.id;
   const result = await User.deleteOne({ _id: idParameter });
+  const usersArray = await User.find();
+  if (!usersArray.length) logout();
 
   return res.send(result);
 }

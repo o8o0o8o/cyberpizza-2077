@@ -5,4 +5,5 @@ export const ROUTES = {
   PRODUCTS_INTERFACE: '/admin/products-interface',
   USERS_INTERFACE: '/admin/users-interface',
   LOGIN: '/login',
+  CREATE_NEW_USER: '/register',
 };

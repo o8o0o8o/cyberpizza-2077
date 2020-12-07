@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
@@ -17,6 +18,7 @@ export const ModalWindow = ({
   handleMethodChange,
   relations,
   submitButtonCaption,
+  secondButton,
 }) => {
   const classes = useStyles();
 
@@ -56,7 +58,10 @@ export const ModalWindow = ({
         ) : (
           <div></div>
         )}
-        <Button type="submit" callback={submit} caption={submitButtonCaption ? submitButtonCaption : 'Send'} />
+        <div>
+          <Button type="submit" callback={submit} caption={submitButtonCaption ? submitButtonCaption : 'Send'} />
+          {secondButton ? <Button type="button" callback={secondButton.callback} caption={secondButton.caption} /> : ''}
+        </div>
       </form>
     );
   }, [
@@ -96,4 +101,5 @@ ModalWindow.propTypes = {
   handleMethodChange: PropTypes.func,
   relations: PropTypes.string.isRequired,
   submitButtonCaption: PropTypes.string,
+  secondButton: PropTypes.obj,
 };

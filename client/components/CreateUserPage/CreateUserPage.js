@@ -4,10 +4,10 @@ import { ROUTES } from '../../routing/ROUTES';
 import { usersService } from '../../services/usersService';
 import { ModalWindow } from '../ModalWindow/ModalWindow';
 
-import { useStyles } from './LoginPage.styles';
+import { useStyles } from './CreateUserPage.styles';
 
-export const LoginPage = () => {
-  const input = ['password', 'email'];
+export const CreateUserPage = () => {
+  const input = ['password', 'email', 'name', 'isAdmin', 'isActive'];
   const classes = useStyles();
   const form = useRef();
   const history = useHistory();
@@ -23,16 +23,12 @@ export const LoginPage = () => {
   const submit = useCallback(
     e => {
       e.preventDefault();
-      usersService.login(findValues(form, input)).then(() => {
+      usersService.createOne(findValues(form, input)).then(() => {
         history.push({ pathname: ROUTES.ADMIN });
       });
     },
     [findValues, history, input],
   );
-
-  const goToCreateUserPage = useCallback(() => {
-    history.push({ pathname: ROUTES.CREATE_NEW_USER });
-  }, [history]);
 
   const closeWindow = function () {
     history.push({ pathname: '/' });
@@ -45,9 +41,8 @@ export const LoginPage = () => {
         form={form}
         submit={submit}
         input={input}
-        submitButtonCaption="Login"
+        submitButtonCaption="Create"
         closeWindow={closeWindow}
-        secondButton={{ callback: goToCreateUserPage, caption: 'Create One' }}
       />
     </div>
   );

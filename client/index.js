@@ -13,6 +13,7 @@ import { store } from './store';
 import { MainPage } from './components/MainPage/MainPage';
 import { AdminRoute } from './routing/AdminRoute';
 import { LoginPage } from './components/LoginPage/LoginPage';
+import { CreateUserPage } from './components/CreateUserPage/CreateUserPage';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -21,6 +22,7 @@ ReactDOM.render(
         <Switch>
           <AdminRoute exact path={ROUTES.ADMIN} component={AdminPage}></AdminRoute>
           <Route exact path={ROUTES.MAIN} component={MainPage}></Route>
+          <Route exact path={ROUTES.CREATE_NEW_USER} component={CreateUserPage}></Route>
           <Route exact path={ROUTES.LOGIN} component={LoginPage}></Route>
           <AdminRoute exact path={ROUTES.CATEGORIES_INTERFACE} component={CategoriesInterface}></AdminRoute>
           <AdminRoute exact path={ROUTES.PRODUCTS_INTERFACE} component={ProductsInterface}></AdminRoute>
