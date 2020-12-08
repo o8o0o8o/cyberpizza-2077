@@ -3,17 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { AdminItem } from '../../components/AdminItem/AdminItem';
 import { SideBar } from '../../components/SideBar/SideBar';
-import { useStyles } from './ProductsInterface.styles';
 import { ModalWindow } from '../../components/ModalWindow/ModalWindow';
-import { Button } from '../../components/Button/Button';
 import { productsSelector } from '../../store/selectors';
 import { productsService } from '../../services/productsService';
 import { categoriesService } from '../../services/categoriesService';
 import { setCategories, setProducts } from '../../store/actions';
+import { TableHeader } from '../../components/TableHeader/TableHeader';
+import { findValues } from '../../util/findValues';
 
 export const ProductsInterface = () => {
   const [showModal, setShowModal] = useState(null);
-  const classes = useStyles();
   const products = useSelector(productsSelector);
   const dispatch = useDispatch();
   const input = ['name', 'price', 'description', 'weight', 'image'];
@@ -26,14 +25,6 @@ export const ProductsInterface = () => {
     productsService.getAll().then(data => dispatch(setProducts(data)));
     categoriesService.getAll().then(data => dispatch(setCategories(data)));
   }, [dispatch]);
-
-  const findValues = useCallback(ref => {
-    const obj = {};
-    Array.from(ref.current).forEach(formEl => {
-      if (formEl.name !== undefined && formEl.name !== '') obj[formEl.name] = formEl.value;
-    });
-    return obj;
-  }, []);
 
   const submit = useCallback(
     e => {
@@ -48,16 +39,16 @@ export const ProductsInterface = () => {
       }
       productsService.getAll().then(data => dispatch(setProducts(data)));
     },
-    [dispatch, findValues, input, method],
+    [dispatch, input, method],
   );
 
   const toggleShowModal = useCallback(() => setShowModal(!showModal), [showModal]);
 
   const handleMethodChange = useCallback(e => setMethod(e.target.value), []);
 
-  const listOfProducts = useMemo(() => {
-    return products.map(a => {
-      return (
+  const listOfProducts = useMemo(
+    () =>
+      products.map(a => (
         <AdminItem
           key={a.toString()}
           obj={a}
@@ -73,13 +64,13 @@ export const ProductsInterface = () => {
             productsService.getAll().then(data => dispatch(setProducts(data)));
           }}
         />
-      );
-    });
-  }, [dispatch, handleMethodChange, input, products, submit]);
+      )),
+    [dispatch, handleMethodChange, input, products, submit],
+  );
 
   return (
-    <div className={classes.wrapper}>
-      <SideBar />
+    <div>
+      <SideBar toggleShowModal={toggleShowModal} />
       {showModal && (
         <ModalWindow
           relations="category"
@@ -92,8 +83,8 @@ export const ProductsInterface = () => {
           handleMethodChange={handleMethodChange}
         />
       )}
-      <div className={classes.table}>{listOfProducts}</div>
-      <Button caption="Make a new request" callback={toggleShowModal} />
+      <TableHeader input={input} />
+      {listOfProducts}
     </div>
   );
 };

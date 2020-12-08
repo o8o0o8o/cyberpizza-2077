@@ -3,16 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { AdminItem } from '../../components/AdminItem/AdminItem';
 import { SideBar } from '../../components/SideBar/SideBar';
-import { useStyles } from './CategoriesInterface.styles';
 import { ModalWindow } from '../../components/ModalWindow/ModalWindow';
-import { Button } from '../../components/Button/Button';
 import { categoriesSelector } from '../../store/selectors';
 import { categoriesService } from '../../services/categoriesService';
 import { setCategories } from '../../store/actions';
+import { TableHeader } from '../../components/TableHeader/TableHeader';
+import { findValues } from '../../util/findValues';
 
 export const CategoriesInterface = () => {
   const [showModal, setShowModal] = useState(null);
-  const classes = useStyles();
   const categories = useSelector(categoriesSelector);
   const dispatch = useDispatch();
   const input = ['name'];
@@ -24,14 +23,6 @@ export const CategoriesInterface = () => {
   useEffect(() => {
     categoriesService.getAll().then(data => dispatch(setCategories(data)));
   }, [dispatch]);
-
-  const findValues = useCallback(ref => {
-    const obj = {};
-    Array.from(ref.current).forEach(formEl => {
-      if (formEl.name !== undefined && formEl.name !== '') obj[formEl.name] = formEl.value;
-    });
-    return obj;
-  }, []);
 
   const submit = useCallback(
     e => {
@@ -46,16 +37,16 @@ export const CategoriesInterface = () => {
       }
       categoriesService.getAll().then(data => dispatch(setCategories(data)));
     },
-    [dispatch, findValues, input, method],
+    [dispatch, input, method],
   );
 
   const toggleShowModal = useCallback(() => setShowModal(!showModal), [showModal]);
 
   const handleMethodChange = useCallback(e => setMethod(e.target.value), []);
 
-  const listOfCategories = useMemo(() => {
-    return categories.map(a => {
-      return (
+  const listOfCategories = useMemo(
+    () =>
+      categories.map(a => (
         <AdminItem
           key={a.toString()}
           obj={a}
@@ -71,13 +62,13 @@ export const CategoriesInterface = () => {
             categoriesService.getAll().then(data => dispatch(setCategories(data)));
           }}
         />
-      );
-    });
-  }, [categories, dispatch, handleMethodChange, input, submit]);
+      )),
+    [categories, dispatch, handleMethodChange, input, submit],
+  );
 
   return (
-    <div className={classes.wrapper}>
-      <SideBar />
+    <div>
+      <SideBar toggleShowModal={toggleShowModal} />
       {showModal && (
         <ModalWindow
           relations="products"
@@ -90,8 +81,8 @@ export const CategoriesInterface = () => {
           handleMethodChange={handleMethodChange}
         />
       )}
-      <div className={classes.table}>{listOfCategories}</div>
-      <Button caption="Make a new request" callback={toggleShowModal} />
+      <TableHeader input={input} />
+      {listOfCategories}
     </div>
   );
 };

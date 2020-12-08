@@ -16,6 +16,8 @@ export const useStyles = createUseStyles({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
+    top: 0,
+    left: 0,
     margin: '0 auto',
     textAlign: 'center',
     zIndex: '10',

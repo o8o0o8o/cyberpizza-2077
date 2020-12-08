@@ -8,8 +8,9 @@
     "dev": "concurrently --kill-others \"webpack --watch\" \"npm run server:watch\"",
     "start": "node server/app.js",
     "build": "webpack",
-    "client:watch": "webpack serve --watch",
-    "test": "jest",
+    "client:watch": "webpack --watch",
+    "react-start": "webpack serve --watch",
+    "test": "jest --detectOpenHandles",
     "lint": "eslint **/* --fix --color --no-error-on-unmatched-pattern --ext .jsx,.js",
     "deploy": "git push heroku master",
     "db:seed": "node server/createTestCollections.js"
@@ -37,8 +38,10 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@babel/plugin-transform-runtime": "^7.12.1",
     "@babel/preset-env": "^7.12.7",
     "@babel/preset-react": "^7.12.7",
+    "@babel/runtime": "^7.12.5",
     "babel-loader": "^8.2.2",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.5",
@@ -54,9 +57,11 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "file-loader": "^6.2.0",
     "husky": "^4.3.0",
+    "jest": "^26.6.3",
     "js-cookie": "^2.2.1",
     "jsonwebtoken": "^8.5.1",
     "lint-staged": "^10.5.2",
+    "mongodb-memory-server": "^6.9.2",
     "nodemon": "^2.0.6",
     "prettier": "^2.2.1",
     "react-jss": "^10.5.0",
@@ -64,8 +69,12 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "style-loader": "^2.0.0",
+    "supertest": "^6.0.1",
     "webpack": "^5.9.0",
     "webpack-cli": "^4.2.0",
     "webpack-dev-server": "^3.11.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }

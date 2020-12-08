@@ -3,16 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { AdminItem } from '../../components/AdminItem/AdminItem';
 import { SideBar } from '../../components/SideBar/SideBar';
-import { useStyles } from './UsersInterface.styles';
 import { ModalWindow } from '../../components/ModalWindow/ModalWindow';
-import { Button } from '../../components/Button/Button';
 import { usersService } from '../../services/usersService';
 import { setUsers } from '../../store/actions';
 import { usersSelector } from '../../store/selectors';
+import { TableHeader } from '../../components/TableHeader/TableHeader';
+import { findValues } from '../../util/findValues';
 
 export const UsersInterface = () => {
   const [showModal, setShowModal] = useState(null);
-  const classes = useStyles();
   const dispatch = useDispatch();
   const input = ['name', 'password', 'email', 'isAdmin', 'isActive'];
   const methods = ['POST', 'PUT'];
@@ -24,14 +23,6 @@ export const UsersInterface = () => {
   useEffect(() => {
     usersService.getAll().then(data => dispatch(setUsers(data)));
   }, [dispatch]);
-
-  const findValues = useCallback(ref => {
-    const obj = {};
-    Array.from(ref.current).forEach(formEl => {
-      if (formEl.name !== undefined && formEl.name !== '') obj[formEl.name] = formEl.value;
-    });
-    return obj;
-  }, []);
 
   const submit = useCallback(
     e => {
@@ -46,16 +37,16 @@ export const UsersInterface = () => {
       }
       usersService.getAll().then(data => dispatch(setUsers(data)));
     },
-    [dispatch, findValues, input, method],
+    [dispatch, input, method],
   );
 
   const toggleShowModal = useCallback(() => setShowModal(!showModal), [showModal]);
 
   const handleMethodChange = useCallback(e => setMethod(e.target.value), []);
 
-  const listOfProducts = useMemo(() => {
-    return users.map(a => {
-      return (
+  const listOfUsers = useMemo(
+    () =>
+      users.map(a => (
         <AdminItem
           key={a.toString()}
           obj={a}
@@ -71,13 +62,13 @@ export const UsersInterface = () => {
             usersService.getAll().then(data => dispatch(setUsers(data)));
           }}
         />
-      );
-    });
-  }, [dispatch, handleMethodChange, input, submit, users]);
+      )),
+    [dispatch, handleMethodChange, input, submit, users],
+  );
 
   return (
-    <div className={classes.wrapper}>
-      <SideBar />
+    <div>
+      <SideBar toggleShowModal={toggleShowModal} />
       {showModal && (
         <ModalWindow
           relations="users"
@@ -90,8 +81,8 @@ export const UsersInterface = () => {
           handleMethodChange={handleMethodChange}
         />
       )}
-      <div className={classes.table}>{listOfProducts}</div>
-      <Button caption="Make a new request" callback={toggleShowModal} />
+      <TableHeader input={input} />
+      {listOfUsers}
     </div>
   );
 };

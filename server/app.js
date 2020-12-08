@@ -21,6 +21,8 @@ app.use(cookieMonster);
 app.use('/api/products', apiProducts);
 app.use('/api/categories', apiCategories);
 app.use('/api/user/', apiUser);
-app.get('/*', function (req, res) {
-  res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
+app.get('/*', async function (req, res) {
+  await res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
 });
+
+module.exports.app = app;

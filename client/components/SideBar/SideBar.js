@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import { ROUTES } from '../../routing/ROUTES';
 import { usersService } from '../../services/usersService';
 import { Button } from '../Button/Button';
 import { useStyles } from './SideBar.styles';
 
-export const SideBar = () => {
+export const SideBar = ({ toggleShowModal }) => {
   const classes = useStyles();
   const history = useHistory();
 
@@ -26,7 +27,12 @@ export const SideBar = () => {
       <Link to={ROUTES.USERS_INTERFACE}>
         <a className={classes.link}>Users</a>
       </Link>
+      <Button caption="Make a new request" callback={toggleShowModal} />
       <Button caption="LOGOUT" callback={logout} />
     </div>
   );
+};
+
+SideBar.propTypes = {
+  toggleShowModal: PropTypes.func.isRequired,
 };

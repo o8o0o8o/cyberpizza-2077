@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { useStyles } from './ModalWindow.styles';
@@ -21,6 +21,11 @@ export const ModalWindow = ({
   secondButton,
 }) => {
   const classes = useStyles();
+  const [checkbox, setCheckbox] = useState({});
+
+  useEffect(() => {
+    if (obj) setCheckbox(obj);
+  }, []);
 
   const myModal = useMemo(() => {
     return (
@@ -42,7 +47,13 @@ export const ModalWindow = ({
         {input.map(a => (
           <div key={a.toString()}>
             <label className={classes.label}>{a}:</label>
-            <input type="text" name={a} placeholder={obj ? obj[a] : ''} />
+            <input
+              type={a === 'password' ? a : a === 'email' ? a : a.startsWith('is') ? 'checkbox' : 'text'}
+              name={a}
+              placeholder={obj ? obj[a] : ''}
+              checked={checkbox[a]}
+              onChange={() => setCheckbox(!checkbox[a])}
+            />
           </div>
         ))}
         {relations === 'category' ? (
