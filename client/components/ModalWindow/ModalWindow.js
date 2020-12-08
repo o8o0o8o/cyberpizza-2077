@@ -1,8 +1,10 @@
-import React, { useMemo } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { useStyles } from './ModalWindow.styles';
 import { CategoriesSelector } from '../CategoriesSelector/CategoriesSelector';
+import { Button } from '../Button/Button';
 
 export const ModalWindow = ({
   closeWindow,
@@ -15,26 +17,43 @@ export const ModalWindow = ({
   methodSelector,
   handleMethodChange,
   relations,
+  submitButtonCaption,
+  secondButton,
 }) => {
   const classes = useStyles();
+  const [checkbox, setCheckbox] = useState({});
+
+  useEffect(() => {
+    if (obj) setCheckbox(obj);
+  }, []);
 
   const myModal = useMemo(() => {
     return (
       <form className={classes.form} ref={form}>
-        <div>
-          <label className={classes.label}>Choose a method:</label>
-          <select onChange={e => handleMethodChange(e)} ref={methodSelector}>
-            {methods.map(a => (
-              <option key={a.toString()} value={a} selected={selectedMethod === a}>
-                {a}
-              </option>
-            ))}
-          </select>
-        </div>
+        {methodSelector ? (
+          <div>
+            <label className={classes.label}>Choose a method:</label>
+            <select onChange={handleMethodChange} ref={methodSelector}>
+              {methods.map(a => (
+                <option key={a.toString()} value={a} selected={selectedMethod === a}>
+                  {a}
+                </option>
+              ))}
+            </select>
+          </div>
+        ) : (
+          <div></div>
+        )}
         {input.map(a => (
           <div key={a.toString()}>
             <label className={classes.label}>{a}:</label>
-            <input type="text" name={a} placeholder={obj ? obj[a] : ''} />
+            <input
+              type={a === 'password' ? a : a === 'email' ? a : a.startsWith('is') ? 'checkbox' : 'text'}
+              name={a}
+              placeholder={obj ? obj[a] : ''}
+              checked={checkbox[a]}
+              onChange={() => setCheckbox(!checkbox[a])}
+            />
           </div>
         ))}
         {relations === 'category' ? (
@@ -42,18 +61,22 @@ export const ModalWindow = ({
             <label className={classes.label}>Select category</label>
             <CategoriesSelector />
           </div>
-        ) : (
+        ) : relations === 'products' ? (
           <div>
             <label className={classes.label}>Pizzas IDs or names comma separated</label>
             <input type="text" name="products" placeholder={obj ? obj.products : ''} />
           </div>
+        ) : (
+          <div></div>
         )}
-        <input type="submit" caption="Make a request" onClick={e => submit(e)} />
+        <div>
+          <Button type="submit" callback={submit} caption={submitButtonCaption ? submitButtonCaption : 'Send'} />
+          {secondButton ? <Button type="button" callback={secondButton.callback} caption={secondButton.caption} /> : ''}
+        </div>
       </form>
     );
   }, [
-    classes.form,
-    classes.label,
+    classes,
     form,
     handleMethodChange,
     input,
@@ -63,14 +86,15 @@ export const ModalWindow = ({
     relations,
     selectedMethod,
     submit,
+    submitButtonCaption,
   ]);
 
   return (
     <div className={classes.wrapper}>
-      {myModal}
-      <button className={classes.close} onClick={() => closeWindow()}>
-        Close
-      </button>
+      <div className={classes.formWrapper}>
+        {myModal}
+        <i className={`${classes.close} far fa-window-close`} onClick={closeWindow}></i>
+      </div>
     </div>
   );
 };
@@ -81,9 +105,11 @@ ModalWindow.propTypes = {
   selectedMethod: PropTypes.string,
   submit: PropTypes.func.isRequired,
   form: PropTypes.any.isRequired,
-  methods: PropTypes.array.isRequired,
+  methods: PropTypes.array,
   input: PropTypes.array.isRequired,
-  methodSelector: PropTypes.any.isRequired,
-  handleMethodChange: PropTypes.func.isRequired,
+  methodSelector: PropTypes.any,
+  handleMethodChange: PropTypes.func,
   relations: PropTypes.string.isRequired,
+  submitButtonCaption: PropTypes.string,
+  secondButton: PropTypes.obj,
 };

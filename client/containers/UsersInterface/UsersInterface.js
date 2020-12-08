@@ -4,26 +4,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AdminItem } from '../../components/AdminItem/AdminItem';
 import { SideBar } from '../../components/SideBar/SideBar';
 import { ModalWindow } from '../../components/ModalWindow/ModalWindow';
-import { productsSelector } from '../../store/selectors';
-import { productsService } from '../../services/productsService';
-import { categoriesService } from '../../services/categoriesService';
-import { setCategories, setProducts } from '../../store/actions';
+import { usersService } from '../../services/usersService';
+import { setUsers } from '../../store/actions';
+import { usersSelector } from '../../store/selectors';
 import { TableHeader } from '../../components/TableHeader/TableHeader';
 import { findValues } from '../../util/findValues';
 
-export const ProductsInterface = () => {
+export const UsersInterface = () => {
   const [showModal, setShowModal] = useState(null);
-  const products = useSelector(productsSelector);
   const dispatch = useDispatch();
-  const input = ['name', 'price', 'description', 'weight', 'image'];
+  const input = ['name', 'password', 'email', 'isAdmin', 'isActive'];
   const methods = ['POST', 'PUT'];
   const methodSelector = useRef();
   const form = useRef();
   const [method, setMethod] = useState(methods[0]);
+  const users = useSelector(usersSelector);
 
   useEffect(() => {
-    productsService.getAll().then(data => dispatch(setProducts(data)));
-    categoriesService.getAll().then(data => dispatch(setCategories(data)));
+    usersService.getAll().then(data => dispatch(setUsers(data)));
   }, [dispatch]);
 
   const submit = useCallback(
@@ -31,13 +29,13 @@ export const ProductsInterface = () => {
       e.preventDefault();
       switch (method) {
         case 'POST':
-          productsService.createOne(findValues(form, input));
+          usersService.createOne(findValues(form, input));
           break;
         case 'PUT':
-          productsService.updateOne(findValues(form, input));
+          usersService.updateOne(findValues(form, input));
           break;
       }
-      productsService.getAll().then(data => dispatch(setProducts(data)));
+      usersService.getAll().then(data => dispatch(setUsers(data)));
     },
     [dispatch, input, method],
   );
@@ -46,13 +44,13 @@ export const ProductsInterface = () => {
 
   const handleMethodChange = useCallback(e => setMethod(e.target.value), []);
 
-  const listOfProducts = useMemo(
+  const listOfUsers = useMemo(
     () =>
-      products.map(a => (
+      users.map(a => (
         <AdminItem
           key={a.toString()}
           obj={a}
-          relations="category"
+          relations=""
           form={form}
           submit={submit}
           input={input}
@@ -60,12 +58,12 @@ export const ProductsInterface = () => {
           methodSelector={methodSelector}
           handleMethodChange={handleMethodChange}
           deleteCallback={() => {
-            productsService.deleteOne(a._id);
-            productsService.getAll().then(data => dispatch(setProducts(data)));
+            usersService.deleteOne(a._id);
+            usersService.getAll().then(data => dispatch(setUsers(data)));
           }}
         />
       )),
-    [dispatch, handleMethodChange, input, products, submit],
+    [dispatch, handleMethodChange, input, submit, users],
   );
 
   return (
@@ -73,7 +71,7 @@ export const ProductsInterface = () => {
       <SideBar toggleShowModal={toggleShowModal} />
       {showModal && (
         <ModalWindow
-          relations="category"
+          relations="users"
           form={form}
           closeWindow={toggleShowModal}
           submit={submit}
@@ -84,7 +82,7 @@ export const ProductsInterface = () => {
         />
       )}
       <TableHeader input={input} />
-      {listOfProducts}
+      {listOfUsers}
     </div>
   );
 };

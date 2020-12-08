@@ -10,10 +10,9 @@ router.put('/', updateCategoryById);
 router.delete('/', deleteCategoryById);
 
 async function createCategory(req, res) {
-  const { name, products } = req.body;
+  const { name } = req.body;
   const category = await Category.create({
     name,
-    products,
   });
 
   return res.send(category);

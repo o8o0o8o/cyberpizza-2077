@@ -1,4 +1,5 @@
 const path = require('path');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: path.resolve(__dirname, './client/index.js'),
@@ -37,5 +38,10 @@ module.exports = {
     open: true,
     watchContentBase: true,
   },
+  plugins: [
+    new CopyPlugin({
+      patterns: [{ from: './client/public' }],
+    }),
+  ],
   devtool: 'source-map',
 };

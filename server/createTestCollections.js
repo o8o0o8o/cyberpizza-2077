@@ -1,4 +1,5 @@
 require('dotenv').config();
+
 const { Category, Product } = require('./models');
 
 const productsList = [
