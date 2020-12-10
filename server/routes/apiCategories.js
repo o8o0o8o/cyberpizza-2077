@@ -10,12 +10,15 @@ router.put('/', updateCategoryById);
 router.delete('/', deleteCategoryById);
 
 async function createCategory(req, res) {
-  const { name } = req.body;
-  const category = await Category.create({
-    name,
-  });
-
-  return res.send(category);
+  if (req.user && req.user.isAdmin) {
+    const { name } = req.body;
+    await Category.create({
+      name,
+    });
+    res.status(200).send('Category created');
+  } else {
+    res.status(401).send('You are not an admin');
+  }
 }
 
 async function findCategoryById(req, res) {
@@ -35,9 +38,12 @@ async function findCategoriesAll(req, res) {
 
 async function deleteCategoryById(req, res) {
   const idParameter = req.body.id || req.params.id;
-  const result = await Category.deleteOne({ _id: idParameter });
 
-  return res.send(result);
+  if (req.user.isAdmin) {
+    const result = await Category.deleteOne({ _id: idParameter });
+
+    return res.send(result);
+  }
 }
 
 async function updateCategoryById(req, res) {

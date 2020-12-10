@@ -5,8 +5,8 @@ const bcrypt = require('bcryptjs');
 
 const { User } = require('../models');
 
-router.get('/', findAllUsers);
-router.get('/:id', getUserById);
+router.get('/all', findAllUsers);
+router.get('/', getCurrentUser);
 router.post('/login', loginUser);
 router.post('/logout', logout);
 router.post('/', createUser);
@@ -23,8 +23,10 @@ async function createUser(req, res) {
     const password = bcrypt.hashSync(req.body.password, salt);
 
     await User.create({ name, password, email, isAdmin, isActive });
+    await loginUser(req, res);
+  } else {
+    res.status(409).send('The user with this email exists');
   }
-  await loginUser(req, res);
 }
 
 async function deleteUser(req, res) {
@@ -33,7 +35,7 @@ async function deleteUser(req, res) {
   const usersArray = await User.find();
   if (!usersArray.length) logout();
 
-  return res.send(result);
+  res.send(result);
 }
 
 async function findAllUsers(req, res) {
@@ -44,19 +46,21 @@ async function findAllUsers(req, res) {
 
 async function logout(req, res) {
   res.clearCookie('user');
-  return res.send('You logged out');
+  res.send('You logged out');
 }
 
-async function getUserById(req, res) {
-  const idParameter = (req.body && req.body.id) || (req.params && req.params.id);
-  const user = await User.findById(idParameter);
-
-  return res.send(user);
+async function getCurrentUser(req, res) {
+  if (req.user) {
+    res.status(200).send(req.user);
+  } else {
+    res.status(404).send('User not found');
+  }
 }
 
 async function loginUser(req, res) {
   const { email } = req.body;
   const user = await User.findOne({ email });
+
   if (bcrypt.compareSync(req.body.password, user.password)) {
     if (user.isActive) {
       const cookie = req.cookies.user;
@@ -65,9 +69,9 @@ async function loginUser(req, res) {
         res.cookie('user', token);
       }
     }
-    res.send('Alright');
+    res.status(200).send('Login successfully');
   } else {
-    res.send('fail');
+    res.status(400).send('Something wrong with your data');
   }
 }
 

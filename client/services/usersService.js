@@ -6,7 +6,7 @@ export class UsersService {
   }
 
   getAll() {
-    return fetch(`${this.endpoint}/api/user`, {
+    return fetch(`${this.endpoint}/api/user/all`, {
       method: 'GET',
     })
       .then(response => response)
@@ -16,8 +16,8 @@ export class UsersService {
       });
   }
 
-  getOne({ id }) {
-    return fetch(`${this.endpoint}/api/user:${id}`, {
+  getCurrent() {
+    return fetch(`${this.endpoint}/api/user`, {
       method: 'GET',
     })
       .then(response => response)
