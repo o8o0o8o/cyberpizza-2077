@@ -33,8 +33,9 @@ export const useStyles = createUseStyles({
     paddingTop: '50px',
   },
   products: {
-    width: '80%',
-    height: '100%',
+    maxWidth: '80%',
+    minWidth: '300px',
+    minHeight: '100%',
     margin: '0 auto',
     display: 'flex',
     flexWrap: 'wrap',

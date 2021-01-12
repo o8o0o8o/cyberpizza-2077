@@ -9,11 +9,11 @@ export const Product = ({ price, description, image, weight, category, putProduc
 
   return (
     <div className={classes.wrapper}>
-      <div>{price}</div>
-      <div>{description}</div>
+      <div>{`Price ${price}`}</div>
+      <div>{`Description ${description}`}</div>
       <img className={classes.img} src={image} alt="pizza image" />
-      <div>{weight}</div>
-      <div>{category}</div>
+      <div>{`Weight ${weight}`}</div>
+      <div>{`Category ${category}`}</div>
       <Button caption={caption} callback={() => putProductInCart(id)} />
     </div>
   );

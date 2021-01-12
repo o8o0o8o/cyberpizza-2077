@@ -10,7 +10,6 @@ import { useStyles } from './MainPage.styles';
 import { Link } from 'react-router-dom';
 import { Button } from '../Button/Button';
 import { ROUTES } from '../../routing/ROUTES';
-import { CartPreview } from '../CartPreview/CartPreview';
 
 export const MainPage = () => {
   const products = useSelector(productsSelector);
@@ -42,7 +41,7 @@ export const MainPage = () => {
           category={a.category}
           putProductInCart={putProductInCart}
           id={a._id}
-          caption={a._id}
+          caption="Add to cart"
         />
       )),
     [products, putProductInCart],
@@ -56,7 +55,6 @@ export const MainPage = () => {
         </Link>
         Cyberpizza 2077
       </div>
-      <CartPreview />
       <div className={classes.contentWrapper}>
         <div className={classes.products}>{listOfProducts}</div>
       </div>

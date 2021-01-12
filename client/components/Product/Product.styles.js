@@ -4,6 +4,7 @@ export const useStyles = createUseStyles({
   wrapper: {
     width: 300,
     height: 300,
+    margin: 'auto',
   },
   img: {
     width: 100,
