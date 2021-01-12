@@ -13,5 +13,6 @@ module.exports = {
   Product: require('./product'),
   Category: require('./category'),
   User: require('./user'),
+  Cart: require('./cart'),
   connectToDB,
 };

@@ -8,6 +8,7 @@ const path = require('path');
 const apiProducts = require('./routes/apiProducts');
 const apiCategories = require('./routes/apiCategories');
 const apiUser = require('./routes/apiUser');
+const apiCart = require('./routes/apiCart');
 const cookieMonster = require('./middleware/cookieMonster');
 const port = process.env.PORT || 2077;
 const connectToDB = require('../server/models/index').connectToDB;
@@ -23,6 +24,7 @@ connectToDB();
 app.use('/api/products', apiProducts);
 app.use('/api/categories', apiCategories);
 app.use('/api/user', apiUser);
+app.use('/api/cart', apiCart);
 app.get('/*', async function (req, res) {
   await res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
 });
