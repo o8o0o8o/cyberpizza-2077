@@ -1,17 +1,25 @@
 import { createUseStyles } from 'react-jss';
 
+import { MAIN_COLOR } from '../../assets/theme/COLORS';
+import { BUTTON_WIDTH } from '../../assets/theme/SIZES';
+import { BUTTON_HEIGHT } from '../../assets/theme/SIZES';
+
+const k = parseFloat(BUTTON_WIDTH) / 200;
+
 export const useStyles = createUseStyles({
   btn: {
     border: 'none',
     padding: '0.25em 0.75em',
-    minWidth: '100px',
-    maxWidth: '310px',
-    Height: '44px',
+    width: BUTTON_WIDTH,
+    height: BUTTON_HEIGHT,
     textAlign: 'center',
+    fontWeight: '900',
     borderRadius: '8px',
-    backgroundColor: '#F335FF',
-    boxShadow: '0 3px 5px rgba(0, 0, 0, 0.18)',
-    transition: '220ms background-color box-shadow outline-color outline-style ease-in-out',
+    backgroundColor: MAIN_COLOR,
+    boxShadow: `${12 * k}px ${12 * k}px ${16 * k}px 0 rgba(0, 0, 0, 0.25), -${8 * k}px -${8 * k}px ${
+      12 * k
+    }px 0 rgba(255, 255, 255, 0.3)`,
+    transition: '0.4s all ease-in-out',
     cursor: 'pointer',
     '&:hover': {
       backgroundColor: '#FF8EF2',
@@ -20,8 +28,10 @@ export const useStyles = createUseStyles({
     '&:focus': {
       outlineStyle: 'solid',
       outlineColor: 'transparent',
-      boxShadow: '1px 2px 3px 4px #690079',
-      backgroundColor: '#A30099',
+      backgroundColor: '#D5CE00',
+      boxShadow: `inset ${6 * k}px ${6 * k}px ${10 * k}px 0 rgba(0, 0, 0, 0.2), inset -${6 * k}px -${6 * k}px ${
+        10 * k
+      }px 0 rgba(255, 255, 255, 0.5)`,
     },
   },
 });

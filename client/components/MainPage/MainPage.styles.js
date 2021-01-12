@@ -1,5 +1,7 @@
 import { createUseStyles } from 'react-jss';
 
+import { MAIN_COLOR } from '../../assets/theme/COLORS';
+
 export const useStyles = createUseStyles({
   wrapper: {
     width: '100vw',
@@ -16,6 +18,7 @@ export const useStyles = createUseStyles({
     justifyContent: 'center',
     alignItems: 'center',
     margin: '0 auto',
+    backgroundColor: MAIN_COLOR,
   },
   header: {
     position: 'fixed',
@@ -30,8 +33,11 @@ export const useStyles = createUseStyles({
     paddingTop: '50px',
   },
   products: {
+    width: '80%',
+    height: '100%',
+    margin: '0 auto',
     display: 'flex',
-    width: '80vw',
+    flexWrap: 'wrap',
     justifyContent: 'center',
     alignItems: 'center',
   },

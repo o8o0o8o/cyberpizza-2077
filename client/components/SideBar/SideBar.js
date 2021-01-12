@@ -29,6 +29,9 @@ export const SideBar = ({ toggleShowModal }) => {
       </Link>
       <Button caption="Make a new request" callback={toggleShowModal} />
       <Button caption="LOGOUT" callback={logout} />
+      <Link to={ROUTES.MAIN}>
+        <Button caption="Go to main" callback={''} />
+      </Link>
     </div>
   );
 };
