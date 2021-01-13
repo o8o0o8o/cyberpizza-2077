@@ -7,7 +7,7 @@ router.get('/:cart_id', findCartById);
 router.post('/', createCart);
 router.post('/:product_id/product', putProductInCart);
 router.put('/:id', updateCart);
-router.delete('/:cart_id/items/:item_id', deleteProductFromCart);
+router.delete('/:product_id/product', deleteProductFromCart);
 router.post('/:id/code', applyCodeToCart);
 router.post('/clear', clearCartById);
 
@@ -47,6 +47,31 @@ async function putProductInCart(req, res) {
   }
 }
 
+async function deleteProductFromCart(req, res) {
+  if (req.body && req.params) {
+    const { cartID, quantity } = req.body;
+    const productID = req.params.product_id;
+    const cart = await Cart.findById(cartID);
+
+    for (const product of cart.products) {
+      if (String(product.product) === String(productID)) {
+        if (product.quantity > quantity) {
+          product.quantity -= quantity;
+        } else {
+          cart.products.product = undefined;
+        }
+
+        await cart.save();
+        return res.status(200).send(cart);
+      }
+    }
+
+    res.status(400).send('Not such a product');
+  } else {
+    res.status(404).send('Empty request');
+  }
+}
+
 async function findCartById(req, res) {
   if (req.params && req.params.cart_id) {
     const cart_id = req.params.cart_id;
@@ -77,21 +102,6 @@ async function clearCartById(req, res) {
     await cart.save();
 
     res.status(200).send(cart);
-  } else {
-    res.status(404).send('Empty request');
-  }
-}
-
-async function deleteProductFromCart(req, res) {
-  if (req.body) {
-    const cartId = req.body.cartId;
-    const cart = await Cart.findById(cartId);
-    const productId = req.body.productId;
-
-    cart.products = cart.products.filter(a => a.productId !== productId);
-    await cart.save();
-
-    res.status(200).send({ message: `Product ${productId} deleted from card`, cart });
   } else {
     res.status(404).send('Empty request');
   }

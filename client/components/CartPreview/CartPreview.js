@@ -5,7 +5,7 @@ import { cartService } from '../../services/cartService';
 import { cartSelector } from '../../store/selectors';
 import { Button } from '../Button/Button';
 import { useStyles } from './CartPreview.styles';
-import { clearCart } from '../../store/actions';
+import { clearCart, setCart } from '../../store/actions';
 
 export const CartPreview = () => {
   const cart = useSelector(cartSelector);
@@ -27,12 +27,28 @@ export const CartPreview = () => {
   const productsList = useMemo(() => {
     if (cart.products) {
       return cart.products.map(product => (
-        <div key={product.toString()}>
-          <div>{`${product.name} ${product.quantity}`}</div>
+        <div key={product.toString()} className={classes.product}>
+          <div className={classes.shortInfo}>{`${product.name} ${product.quantity}`}</div>
+          <Button
+            caption="-"
+            callback={() =>
+              cartService
+                .delProductFromCart('5fdc995d15b31f2f3c4630e3', product.product, 1, product.name)
+                .then(data => dispatch(setCart(data)))
+            }
+          />
+          <Button
+            caption="+"
+            callback={() =>
+              cartService
+                .addProductToCart('5fdc995d15b31f2f3c4630e3', product.product, 1, product.name)
+                .then(data => dispatch(setCart(data)))
+            }
+          />
         </div>
       ));
     }
-  }, [cart]);
+  }, [cart, classes, dispatch]);
 
   return (
     <div className={classes.wrapper}>

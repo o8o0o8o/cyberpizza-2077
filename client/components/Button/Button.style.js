@@ -10,8 +10,8 @@ export const useStyles = createUseStyles({
   btn: {
     border: 'none',
     padding: '0.25em 0.75em',
-    width: BUTTON_WIDTH,
-    height: BUTTON_HEIGHT,
+    maxWidth: BUTTON_WIDTH,
+    maxHeight: BUTTON_HEIGHT,
     textAlign: 'center',
     fontWeight: '900',
     borderRadius: '8px',

@@ -30,6 +30,21 @@ export class CartService {
       });
   }
 
+  delProductFromCart(cartID, productId, quantity, name) {
+    return fetch(`${this.endpoint}/api/cart/${productId}/product`, {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ cartID, quantity, name }),
+    })
+      .then(response => response.json())
+      .catch(e => {
+        throw new Error(e.message);
+      });
+  }
+
   createOne({ name, products }) {
     return fetch(`${this.endpoint}/api/cart`, {
       method: 'POST',
