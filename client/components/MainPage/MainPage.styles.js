@@ -31,15 +31,22 @@ export const useStyles = createUseStyles({
     fontSize: '70px',
     textAlign: 'center',
     paddingTop: '50px',
+    fontFamily: 'cyberpunk',
   },
   products: {
     maxWidth: '80%',
     minWidth: '300px',
-    minHeight: '100%',
+    height: '100%',
     margin: '0 auto',
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
     alignItems: 'center',
+    paddingTop: '150px',
+  },
+  controls: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
   },
 });

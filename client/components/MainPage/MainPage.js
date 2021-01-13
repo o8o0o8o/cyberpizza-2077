@@ -10,6 +10,7 @@ import { useStyles } from './MainPage.styles';
 import { Link } from 'react-router-dom';
 import { Button } from '../Button/Button';
 import { ROUTES } from '../../routing/ROUTES';
+import { CartPreview } from '../CartPreview/CartPreview';
 
 export const MainPage = () => {
   const products = useSelector(productsSelector);
@@ -49,14 +50,15 @@ export const MainPage = () => {
 
   return (
     <div className={classes.wrapper}>
-      <div className={classes.header}>
+      <div className={classes.header}>Cyberpizza 2077</div>
+      <div className={classes.contentWrapper}>
+        <div className={classes.products}>{listOfProducts}</div>
+      </div>
+      <div className={classes.controls}>
         <Link to={ROUTES.ADMIN}>
           <Button caption="got to admin interface" callback={''} />
         </Link>
-        Cyberpizza 2077
-      </div>
-      <div className={classes.contentWrapper}>
-        <div className={classes.products}>{listOfProducts}</div>
+        <CartPreview />
       </div>
     </div>
   );
