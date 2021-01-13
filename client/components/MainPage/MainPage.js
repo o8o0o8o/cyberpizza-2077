@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Cookies from 'js-cookie';
 
-import { cartSelector, productsSelector } from '../../store/selectors';
+import { productsSelector } from '../../store/selectors';
 import { productsService } from '../../services/productsService';
 import { cartService } from '../../services/cartService';
 import { setCart, setProducts } from '../../store/actions';
@@ -16,18 +17,18 @@ export const MainPage = () => {
   const products = useSelector(productsSelector);
   const dispatch = useDispatch();
   const classes = useStyles();
-  const cart = useSelector(cartSelector);
+  const cartID = Cookies.get('cartID');
 
   useEffect(() => {
     productsService.getAll().then(data => dispatch(setProducts(data)));
-    cartService.getCartById('5fdc995d15b31f2f3c4630e3').then(data => dispatch(setCart(data)));
-  }, [dispatch]);
+    cartService.getCartById(cartID).then(data => dispatch(setCart(data)));
+  }, [cartID, dispatch]);
 
   const putProductInCart = useCallback(
     productId => {
-      cartService.addProductToCart(cart._id, productId, 1).then(data => dispatch(setCart(data)));
+      cartService.addProductToCart(cartID, productId, 1).then(data => dispatch(setCart(data)));
     },
-    [cart, dispatch],
+    [cartID, dispatch],
   );
 
   const listOfProducts = useMemo(
