@@ -58,7 +58,9 @@ async function deleteProductFromCart(req, res) {
         if (product.quantity > quantity) {
           product.quantity -= quantity;
         } else {
-          cart.products.product = undefined;
+          const index = cart.products.findIndex(el => (el.product = product));
+
+          cart.products.splice(index, 1);
         }
 
         await cart.save();
