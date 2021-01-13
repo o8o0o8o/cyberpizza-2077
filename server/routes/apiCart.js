@@ -31,18 +31,17 @@ async function putProductInCart(req, res) {
     const cart = await Cart.findById(cartID);
     const quantity = req.body.quantity;
 
-    await cart.products.forEach(async a => {
-      if (String(a.product) === String(productID)) {
-        a.quantity += quantity; //break
-        await cart.save();
+    for (const product of cart.products) {
+      if (String(product.product) === String(productID)) {
+        product.quantity += quantity;
 
+        await cart.save();
         return res.status(200).send(cart);
       }
-    });
+    }
 
     cart.products.push({ product: productID, quantity });
     await cart.save();
-
     res.status(200).send(cart);
   } else {
     res.status(404).send('Empty request');
