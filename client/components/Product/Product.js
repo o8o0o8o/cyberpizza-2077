@@ -15,7 +15,7 @@ export const Product = ({ price, description, image, weight, category, putProduc
       <img className={classes.img} src={image} alt="pizza image" />
       <div>{`Weight ${weight}`}</div>
       <div>{`Category ${category}`}</div>
-      <Button caption={caption} callback={() => putProductInCart(id, name)} />
+      <Button caption={caption} callback={() => putProductInCart(id, name, price)} />
     </div>
   );
 };

@@ -15,14 +15,14 @@ export class CartService {
       });
   }
 
-  addProductToCart(cartID, productId, quantity, name) {
+  addProductToCart(cartID, productId, quantity, name, price) {
     return fetch(`${this.endpoint}/api/cart/${productId}/product`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ cartID, quantity, name }),
+      body: JSON.stringify({ cartID, quantity, name, price }),
     })
       .then(response => response.json())
       .catch(e => {
@@ -30,14 +30,14 @@ export class CartService {
       });
   }
 
-  delProductFromCart(cartID, productId, quantity, name) {
+  delProductFromCart(cartID, productId, quantity) {
     return fetch(`${this.endpoint}/api/cart/${productId}/product`, {
       method: 'DELETE',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ cartID, quantity, name }),
+      body: JSON.stringify({ cartID, quantity }),
     })
       .then(response => response.json())
       .catch(e => {

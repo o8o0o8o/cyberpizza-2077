@@ -26,7 +26,7 @@ async function createCart(req, res) {
 
 async function putProductInCart(req, res) {
   if (req.body && req.params) {
-    const { cartID, quantity, name } = req.body;
+    const { cartID, quantity, name, price } = req.body;
     const productID = req.params.product_id;
     const cart = await Cart.findById(cartID);
 
@@ -39,7 +39,7 @@ async function putProductInCart(req, res) {
       }
     }
 
-    cart.products.push({ product: productID, quantity, name });
+    cart.products.push({ product: productID, quantity, name, price });
     await cart.save();
     res.status(200).send(cart);
   } else {

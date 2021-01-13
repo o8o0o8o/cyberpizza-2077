@@ -25,8 +25,8 @@ export const MainPage = () => {
   }, [cartID, dispatch]);
 
   const putProductInCart = useCallback(
-    (productId, name) => {
-      cartService.addProductToCart(cartID, productId, 1, name).then(data => dispatch(setCart(data)));
+    (productId, name, price) => {
+      cartService.addProductToCart(cartID, productId, 1, name, price).then(data => dispatch(setCart(data)));
     },
     [cartID, dispatch],
   );
