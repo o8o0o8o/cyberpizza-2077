@@ -1,14 +1,16 @@
 import React, { useMemo } from 'react';
-import { useSelector } from 'react-redux';
-import { cartService } from '../../services/cartService';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { cartService } from '../../services/cartService';
 import { cartSelector } from '../../store/selectors';
 import { Button } from '../Button/Button';
 import { useStyles } from './CartPreview.styles';
+import { clearCart } from '../../store/actions';
 
 export const CartPreview = () => {
   const cart = useSelector(cartSelector);
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const qtyOfProductsInCart = useMemo(() => {
     let qty = 0;
@@ -25,8 +27,12 @@ export const CartPreview = () => {
   return (
     <div className={classes.wrapper}>
       <h6>Cart</h6>
-      {qtyOfProductsInCart}
-      <Button caption="Empty cart" callback={() => cartService.clearOne('5fdc995d15b31f2f3c4630e3')} />
+      <div>{`Quantity ${qtyOfProductsInCart}`}</div>
+      <Button
+        caption="Empty cart"
+        callback={() => dispatch(clearCart(cartService.clearOne('5fdc995d15b31f2f3c4630e3')))}
+      />
+      <Button caption="Show cart" callback="" />
     </div>
   );
 };

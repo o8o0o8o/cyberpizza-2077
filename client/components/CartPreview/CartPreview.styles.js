@@ -6,5 +6,9 @@ export const useStyles = createUseStyles({
     width: '100px',
     height: '100px',
     border: '1px solid red',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

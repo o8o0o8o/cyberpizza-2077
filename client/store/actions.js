@@ -6,3 +6,4 @@ export const setUsers = createAction('[Users] Set new array');
 export const setCart = createAction('[Cart] Set a cart');
 export const addProductToCart = createAction('[Cart] Add product to cart');
 export const removeProductFromCart = createAction('[Cart] Remove product from cart');
+export const clearCart = createAction('[Cart] Remove all products from cart');
