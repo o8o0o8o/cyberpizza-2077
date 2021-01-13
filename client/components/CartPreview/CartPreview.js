@@ -24,10 +24,21 @@ export const CartPreview = () => {
     return qty;
   }, [cart]);
 
+  const productsList = useMemo(() => {
+    if (cart.products) {
+      return cart.products.map(product => (
+        <div key={product.toString()}>
+          <div>{`${product.name} ${product.quantity}`}</div>
+        </div>
+      ));
+    }
+  }, [cart]);
+
   return (
     <div className={classes.wrapper}>
       <h6>Cart</h6>
       <div>{`Quantity ${qtyOfProductsInCart}`}</div>
+      {productsList}
       <Button
         caption="Empty cart"
         callback={() => dispatch(clearCart(cartService.clearOne('5fdc995d15b31f2f3c4630e3')))}

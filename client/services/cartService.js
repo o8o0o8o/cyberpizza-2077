@@ -15,14 +15,14 @@ export class CartService {
       });
   }
 
-  addProductToCart(cartID, productId, quantity) {
+  addProductToCart(cartID, productId, quantity, name) {
     return fetch(`${this.endpoint}/api/cart/${productId}/product`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ cartID, quantity }),
+      body: JSON.stringify({ cartID, quantity, name }),
     })
       .then(response => response.json())
       .catch(e => {
