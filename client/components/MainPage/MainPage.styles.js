@@ -46,7 +46,12 @@ export const useStyles = createUseStyles({
   },
   controls: {
     position: 'absolute',
-    top: 0,
+    top: 10,
     right: 0,
+    display: 'flex',
+    width: '10vw',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
   },
 });

@@ -8,6 +8,7 @@ export const useStyles = createUseStyles({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    margin: '10px',
   },
   product: {
     display: 'flex',

@@ -25,7 +25,7 @@ export const useStyles = createUseStyles({
       backgroundColor: '#FF8EF2',
       boxShadow: '0 3px 5px #FF8EF2',
     },
-    '&:focus': {
+    '&:active': {
       outlineStyle: 'solid',
       outlineColor: 'transparent',
       backgroundColor: '#D5CE00',
@@ -33,5 +33,12 @@ export const useStyles = createUseStyles({
         10 * k
       }px 0 rgba(255, 255, 255, 0.5)`,
     },
+    '&:focus': {
+      outline: 'none',
+    },
+  },
+  small: {
+    width: '29px',
+    height: '29px',
   },
 });
