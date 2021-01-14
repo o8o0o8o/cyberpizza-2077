@@ -1,6 +1,9 @@
 {
   "name": "cyberpizza-2077",
   "version": "1.0.0",
+  "engines": {
+    "node": "14.x"
+  },
   "description": "pizza delivery service",
   "main": "server/app.js",
   "scripts": {
