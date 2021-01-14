@@ -39,6 +39,7 @@ export const CartPreview = ({ cartID }) => {
             callback={() =>
               cartService.delProductFromCart(cartID, product.product, 1).then(data => dispatch(setCart(data)))
             }
+            small={true}
           />
           <Button
             caption="+"
@@ -47,6 +48,7 @@ export const CartPreview = ({ cartID }) => {
                 .addProductToCart(cartID, product.product, 1, product.name, product.price)
                 .then(data => dispatch(setCart(data)))
             }
+            small={true}
           />
         </div>
       ));
@@ -57,7 +59,7 @@ export const CartPreview = ({ cartID }) => {
     <div className={classes.wrapper}>
       <h6>Cart</h6>
       {productsList}
-      <div>{`${total.qty} product with overall cost ${total.price}`}</div>
+      <div>{`${total.qty} product with overall cost ${total.price}$`}</div>
       <Button caption="Empty cart" callback={() => dispatch(clearCart(cartService.clearOne(cartID)))} />
       <Button caption="Show cart" callback="" />
     </div>

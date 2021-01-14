@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 import { useStyles } from './Button.style';
 
-export const Button = ({ caption, callback }) => {
+export const Button = ({ caption, callback, small }) => {
   const classes = useStyles();
 
   return (
-    <button className={classes.btn} onClick={callback}>
+    <button className={small ? `${classes.btn} ${classes.small}` : classes.btn} onClick={callback}>
       {caption}
     </button>
   );
@@ -16,4 +16,5 @@ export const Button = ({ caption, callback }) => {
 Button.propTypes = {
   caption: PropTypes.string.isRequired,
   callback: PropTypes.func.isRequired,
+  small: PropTypes.bool,
 };
