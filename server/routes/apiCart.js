@@ -18,10 +18,10 @@ async function createCart(req, res) {
       name,
     });
 
-    res.status(200).send(cart);
-  } else {
-    res.status(404).send('Empty request');
+    return res.status(200).send(cart);
   }
+
+  return res.status(404).send('Empty request');
 }
 
 async function putProductInCart(req, res) {
@@ -41,10 +41,11 @@ async function putProductInCart(req, res) {
 
     cart.products.push({ product: productID, quantity, name, price });
     await cart.save();
-    res.status(200).send(cart);
-  } else {
-    res.status(404).send('Empty request');
+
+    return res.status(200).send(cart);
   }
+
+  return res.status(404).send('Empty request');
 }
 
 async function deleteProductFromCart(req, res) {
@@ -68,10 +69,10 @@ async function deleteProductFromCart(req, res) {
       }
     }
 
-    res.status(400).send('Not such a product');
-  } else {
-    res.status(404).send('Empty request');
+    return res.status(400).send('Not such a product');
   }
+
+  return res.status(404).send('Empty request');
 }
 
 async function findCartById(req, res) {
@@ -79,10 +80,10 @@ async function findCartById(req, res) {
     const cart_id = req.params.cart_id;
     const cart = await Cart.findById(cart_id);
 
-    res.status(200).send(cart);
-  } else {
-    res.status(404).send('No cart was found');
+    return res.status(200).send(cart);
   }
+
+  return res.status(404).send('No cart was found');
 }
 
 async function updateCart(req, res) {
@@ -90,10 +91,10 @@ async function updateCart(req, res) {
     const cartId = req.body.cartId;
     const cart = await Cart.updateOne(cartId, req.body.update);
 
-    res.status(200).send(cart);
-  } else {
-    res.status(404).send('Empty request');
+    return res.status(200).send(cart);
   }
+
+  return res.status(404).send('Empty request');
 }
 
 async function clearCartById(req, res) {
@@ -103,10 +104,10 @@ async function clearCartById(req, res) {
     cart.products = [];
     await cart.save();
 
-    res.status(200).send(cart);
-  } else {
-    res.status(404).send('Empty request');
+    return res.status(200).send(cart);
   }
+
+  return res.status(404).send('Empty request');
 }
 
 async function applyCodeToCart(req, res) {
@@ -118,10 +119,10 @@ async function applyCodeToCart(req, res) {
     cart.code *= code;
     await cart.save();
 
-    res.status(200).send({ message: `Code ${code}  applied to card`, cart });
-  } else {
-    res.status(404).send('Empty request');
+    return res.status(200).send({ message: `Code ${code}  applied to card`, cart });
   }
+
+  return res.status(404).send('Empty request');
 }
 
 module.exports = router;

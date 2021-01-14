@@ -60,7 +60,7 @@ export const MainPage = () => {
         <Link to={ROUTES.ADMIN}>
           <Button caption="got to admin interface" callback={''} />
         </Link>
-        <CartPreview />
+        <CartPreview cartID={cartID} />
       </div>
     </div>
   );
