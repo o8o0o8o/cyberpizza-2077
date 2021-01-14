@@ -6,19 +6,18 @@ const { User, Cart } = require('../models');
 async function cookieMonster(req, res, next) {
   const cookieSessionId = req.cookies.sessionId;
   let cart;
-
   if (cookieSessionId === undefined) {
     const sessionId = uuidv4();
     cart = await Cart.create({ sum: 0, status: true, code: 0, specifyTheUser: { sessionId: sessionId } }); // for users too
 
-    res.cookie('sessionId', sessionId, { httpOnly: true });
+    res.cookie('sessionId', sessionId);
   } else {
-    res.cookie('sessionId', cookieSessionId, { httpOnly: true });
+    res.cookie('sessionId', cookieSessionId);
 
     cart = await Cart.findOne({ specifyTheUser: { sessionId: cookieSessionId } }); // for users too
   }
 
-  res.cookie('cartID', cart._id, { httpOnly: true });
+  res.cookie('cartID', String(cart._id));
   req.cart = cart;
 
   if (req.cookies.user) {

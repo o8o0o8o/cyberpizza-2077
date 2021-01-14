@@ -1,4 +1,12 @@
-import { setProducts, setCategories, setUsers, setCart, removeProductFromCart, addProductToCart } from './actions';
+import {
+  setProducts,
+  setCategories,
+  setUsers,
+  setCart,
+  removeProductFromCart,
+  addProductToCart,
+  clearCart,
+} from './actions';
 
 export const productsReducer = (state = [], action) => {
   switch (action.type) {
@@ -46,6 +54,9 @@ export const cartReducer = (state = [], action) => {
         }
       });
       return state;
+    }
+    case clearCart.type: {
+      return [];
     }
     default:
       return state;

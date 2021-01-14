@@ -4,17 +4,18 @@ import PropTypes from 'prop-types';
 import { useStyles } from './Product.styles';
 import { Button } from '../Button/Button';
 
-export const Product = ({ price, description, image, weight, category, putProductInCart, caption, id }) => {
+export const Product = ({ price, description, image, weight, category, putProductInCart, caption, id, name }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.wrapper}>
-      <div>{price}</div>
-      <div>{description}</div>
+      <div>{`Name ${name}`}</div>
+      <div>{`Price ${price}`}</div>
+      <div>{`Description ${description}`}</div>
       <img className={classes.img} src={image} alt="pizza image" />
-      <div>{weight}</div>
-      <div>{category}</div>
-      <Button caption={caption} callback={() => putProductInCart(id)} />
+      <div>{`Weight ${weight}`}</div>
+      <div>{`Category ${category}`}</div>
+      <Button caption={caption} callback={() => putProductInCart(id, name, price)} />
     </div>
   );
 };
@@ -28,4 +29,5 @@ Product.propTypes = {
   putProductInCart: PropTypes.func.isRequired,
   caption: PropTypes.string,
   id: PropTypes.string,
+  name: PropTypes.string,
 };
