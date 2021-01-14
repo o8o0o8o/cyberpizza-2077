@@ -61,7 +61,6 @@ export const CartPreview = ({ cartID }) => {
       {productsList}
       <div>{`${total.qty} product with overall cost ${total.price}$`}</div>
       <Button caption="Empty cart" callback={() => dispatch(clearCart(cartService.clearOne(cartID)))} />
-      <Button caption="Show cart" callback="" />
     </div>
   );
 };
