@@ -37,7 +37,6 @@ export const MainPage = () => {
         <Product
           key={a.toString()}
           price={a.price}
-          description={a.description}
           image={a.image}
           weight={a.weight}
           category={a.category}
