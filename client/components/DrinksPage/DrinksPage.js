@@ -2,13 +2,13 @@ import React from 'react';
 
 import Cookies from 'js-cookie';
 
-import { useStyles } from './DessertsPage.styles';
+import { useStyles } from './DrinksPage.styles';
 import { Link } from 'react-router-dom';
 import { Button } from '../Button/Button';
 import { ROUTES } from '../../routing/ROUTES';
 import { CartPreview } from '../CartPreview/CartPreview';
 
-export const DessertsPage = () => {
+export const DrinksPage = () => {
   const classes = useStyles();
   const cartID = Cookies.get('cartID');
 
@@ -16,7 +16,7 @@ export const DessertsPage = () => {
     <div className={classes.wrapper}>
       <div className={classes.header}>Cyberpizza 2077</div>
       <div className={classes.contentWrapper}>
-        <div className={classes.products}>Sorry. No desserts yet.</div>
+        <div className={classes.products}>Sorry. No drinks were added yet.</div>
       </div>
       <div className={classes.cart}>
         <Link to={ROUTES.ADMIN}>

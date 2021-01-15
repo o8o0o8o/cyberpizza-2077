@@ -7,7 +7,7 @@ export const Button = ({ caption, callback, small }) => {
   const classes = useStyles();
 
   return (
-    <button className={small ? `${classes.btn} ${classes.small}` : classes.btn} onClick={callback ? callback : ''}>
+    <button className={small ? `${classes.btn} ${classes.small}` : classes.btn} onClick={callback}>
       {caption}
     </button>
   );

@@ -6,6 +6,6 @@ export const ROUTES = {
   USERS_INTERFACE: '/admin/users-interface',
   LOGIN: '/login',
   CREATE_NEW_USER: '/register',
-  DRINKS: './drinks',
-  DESSERTS: './desserts',
+  DRINKS: '/drinks',
+  DESSERTS: '/desserts',
 };
