@@ -55,11 +55,22 @@ export const MainPage = () => {
       <div className={classes.contentWrapper}>
         <div className={classes.products}>{listOfProducts}</div>
       </div>
-      <div className={classes.controls}>
+      <div className={classes.cart}>
         <Link to={ROUTES.ADMIN}>
-          <Button caption="got to admin interface" callback={''} />
+          <Button caption="got to admin interface" />
         </Link>
         <CartPreview cartID={cartID} />
+      </div>
+      <div className={classes.menu}>
+        <Link to={ROUTES.MAIN}>
+          <Button caption="pizza" />
+        </Link>
+        <Link to={ROUTES.DESSERTS}>
+          <Button caption="desserts" />
+        </Link>
+        <Link to={ROUTES.DRINKS}>
+          <Button caption="drinks" />
+        </Link>
       </div>
     </div>
   );
