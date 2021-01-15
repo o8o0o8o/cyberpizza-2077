@@ -3,12 +3,13 @@ import { createUseStyles } from 'react-jss';
 export const useStyles = createUseStyles({
   wrapper: {
     width: '9vw',
-    border: '1px solid red',
+    borderRadius: '10px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     margin: '10px',
+    backgroundColor: '#c8a904',
   },
   product: {
     display: 'flex',

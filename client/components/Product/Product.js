@@ -10,7 +10,7 @@ export const Product = ({ price, description, image, weight, category, putProduc
   return (
     <div className={classes.wrapper}>
       <div>{`Name ${name}`}</div>
-      <div>{`Price ${price}`}</div>
+      <div>{`Price ${price}$`}</div>
       <div>{`Description ${description}`}</div>
       <img className={classes.img} src={image} alt="pizza image" />
       <div>{`Weight ${weight}`}</div>

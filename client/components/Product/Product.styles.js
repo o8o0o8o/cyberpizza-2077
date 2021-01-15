@@ -9,7 +9,9 @@ export const useStyles = createUseStyles({
     justifyContent: 'center',
     alignItems: 'center',
     margin: 'auto',
-    border: '1px solid black',
+    borderRadius: '15px',
+    backgroundColor: 'gold',
+    boxShadow: '3px 3px 15px 3px #917700',
   },
   img: {
     width: 100,
